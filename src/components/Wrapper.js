@@ -14,7 +14,7 @@ class Wrapper extends Component {
                 <Container>
                     <Switch>
                         <Route exact path='/wall' component={ListOfCards}/>
-                        {/*<Route path='/stats' component={Stats}/>*/}
+                        <Route path='/stats' component={Stats}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>
@@ -26,11 +26,12 @@ const LayoutWrapper = styled.div`
    background: ${Colors.Overcast};
    width: 100vw;
    height: 100vh;
+   overflow: hidden;
 `
 
 const Container = styled.main`
   width: 100%;
   height: calc(100vh - ${headerHeight}px);
-
+  overflow: scroll;
 `
 export default Wrapper;
