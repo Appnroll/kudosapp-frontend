@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Header, { headerHeight } from './Header'
 import Colors from '../constants/Colors'
+import { Switch, Route } from 'react-router-dom'
 import ListOfCards from "./ListOfCards";
+import Stats from "./Stats";
 
 class Wrapper extends Component {
     render() {
@@ -10,7 +12,10 @@ class Wrapper extends Component {
             <LayoutWrapper>
                 <Header/>
                 <Container>
-                    <ListOfCards/>
+                    <Switch>
+                        <Route exact path='/wall' component={ListOfCards}/>
+                        {/*<Route path='/stats' component={Stats}/>*/}
+                    </Switch>
                 </Container>
             </LayoutWrapper>
         );

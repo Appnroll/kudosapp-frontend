@@ -50,7 +50,7 @@ const KudosMan = styled.span`
   color: ${Colors.GlacierBlue}
 `
 const KudosPoints = styled.div`
-  color: ${Colors.WarmGray}
+  color: ${Colors.Banana}
 `
 const KudosContent = styled.p`
   font-size: 16px;

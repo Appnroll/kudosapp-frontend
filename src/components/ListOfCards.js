@@ -7,7 +7,7 @@ class ListOfCards extends Component {
     render() {
         return (
             <StyledList>
-                {kudosList.map(kudos => <Card kudos={kudos}/>)}
+                {kudosList.map((kudos, index) => <Card kudos={kudos} key={index}/>)}
             </StyledList>
         );
     }
