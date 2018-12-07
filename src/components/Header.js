@@ -12,15 +12,12 @@ class Header extends Component {
             <StyledHeader>
                 <div>
                     <Title>
-                        <Logo/>
-                        KUDOS<span>ME</span>
+                        <NavLink to={process.env.PUBLIC_URL + "/"}>
+                            <Logo/>
+                            KUDOS<span>ME</span>
+                        </NavLink>
                     </Title>
                     <Menu>
-                        <li>
-                            <NavLink to={process.env.PUBLIC_URL + "/instructions"} activeStyle={{ color: Colors.Banana }}>
-                                Instructions
-                            </NavLink>
-                        </li>
                         <li>
                             <NavLink to={process.env.PUBLIC_URL + "/wall"} activeStyle={{ color: Colors.Banana }}>
                                 Wall
