@@ -16,11 +16,14 @@ class Header extends Component {
                 </Title>
                 <Menu>
                     <li>
-                        <NavLink to="/wall" activeStyle={{ color: 'red' }}>
-                            Wall</NavLink>
+                        <NavLink to="/wall" activeStyle={{ color: Colors.Banana }}>
+                            Wall
+                        </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/stats" activeStyle={{ color: 'red' }}>Statistics</NavLink>
+                        <NavLink to="/stats" activeStyle={{ color: Colors.Banana }}>
+                            Statistics
+                        </NavLink>
                     </li>
                 </Menu>
             </StyledHeader>

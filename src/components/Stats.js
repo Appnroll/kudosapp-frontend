@@ -10,11 +10,19 @@ class Stats extends Component {
     }
     componentWillMount () {
         getKudosesStats()
+            .then(ranking => ranking.sort(this.compare))
             .then(ranking => {
                 this.setState({
                     ranking
                 })
             })
+    }
+    compare(a, b) {
+        if (a.totalPoints > b.totalPoints)
+            return -1;
+        else if (a.totalPoints < b.totalPoints)
+            return 1;
+        return 0;
     }
     calculateBar (points) {
         const bestScore = this.state.ranking[0].totalPoints

@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import Colors from '../constants/Colors'
 
 class Card extends Component {
+    isSlackUser (username) {
+        return username[0] === '@'
+    }
     render() {
         const { name, points, description, from } = this.props.kudos
         return (
@@ -11,15 +14,17 @@ class Card extends Component {
                     <h6>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan> @{name}</KudosMan>
+                        <KudosMan slackUser={this.isSlackUser(name)}> {name}</KudosMan>
                     </h6>
-                    <KudosPoints>+{points}</KudosPoints>
+                    <KudosPoints>
+                        {points > 0 ? '+' + points : points}
+                    </KudosPoints>
                 </Row>
                 <KudosContent>
                     {description}
                 </KudosContent>
                 <KudosAuthor>
-                    by <KudosMan>@{from}</KudosMan>
+                    by <KudosMan slackUser={this.isSlackUser(from)}>{from}</KudosMan>
                 </KudosAuthor>
             </StyledCard>
         );
@@ -36,7 +41,7 @@ const StyledCard = styled.li`
   padding: 20px;
   border: 2px solid ${Colors.Ice};
   h6 {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 `
 const Row = styled.div`
@@ -49,7 +54,7 @@ const KudosTitle = styled.strong`
   margin-right: 3px;
 `
 const KudosMan = styled.span`
-  color: ${Colors.GlacierBlue}
+  color: ${props => props.slackUser ? Colors.GlacierBlue : Colors.WarmGray}
 `
 const KudosPoints = styled.div`
   color: ${Colors.Banana}
@@ -60,6 +65,6 @@ const KudosContent = styled.p`
 `
 const KudosAuthor = styled.p`
   font-size: 12px;
-  margin-top: 15px;
+  margin-top: 20px;
 `
 export default Card;
