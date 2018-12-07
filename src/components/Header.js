@@ -10,22 +10,24 @@ class Header extends Component {
     render() {
         return (
             <StyledHeader>
-                <Title>
-                    <Logo/>
-                    KUDOS<span>ME</span>
-                </Title>
-                <Menu>
-                    <li>
-                        <NavLink to="/wall" activeStyle={{ color: Colors.Banana }}>
-                            Wall
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/stats" activeStyle={{ color: Colors.Banana }}>
-                            Statistics
-                        </NavLink>
-                    </li>
-                </Menu>
+                <div>
+                    <Title>
+                        <Logo/>
+                        KUDOS<span>ME</span>
+                    </Title>
+                    <Menu>
+                        <li>
+                            <NavLink to="/wall" activeStyle={{ color: Colors.Banana }}>
+                                Wall
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/stats" activeStyle={{ color: Colors.Banana }}>
+                                Statistics
+                            </NavLink>
+                        </li>
+                    </Menu>
+                </div>
             </StyledHeader>
         );
     }
@@ -35,12 +37,19 @@ const StyledHeader = styled.header`
   width: 100%;
   height: ${headerHeight}px;
   background: ${Colors.White};
-  border-bottom: 2px solid ${Colors.Ice}
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-bottom: 2px solid ${Colors.Ice};
   padding: 0 20px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  & > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+  }
 `
 const Menu = styled.ul`
   display: flex;

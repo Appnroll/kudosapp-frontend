@@ -33,5 +33,7 @@ const Container = styled.main`
   width: 100%;
   height: calc(100vh - ${headerHeight}px);
   overflow: scroll;
+  padding: 0 20px;
+  box-sizing: border-box;
 `
 export default Wrapper;
