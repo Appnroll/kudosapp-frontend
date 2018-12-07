@@ -14,7 +14,7 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path={'/'} component={Instructions}/>
+                        <Route exact path='/' component={Instructions}/>
                         <Route path='/wall' component={ListOfCards}/>
                         <Route path='/stats' component={Stats}/>
                     </Switch>
