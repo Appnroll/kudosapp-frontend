@@ -16,6 +16,7 @@ class Stats extends Component {
                 })
             })
     }
+    // would return b.totalPoints - a.totalPoints be enough?
     compare(a, b) {
         if (a.totalPoints > b.totalPoints)
             return -1;
@@ -24,6 +25,7 @@ class Stats extends Component {
         return 0;
     }
     calculateBar (points) {
+        // very unsafe to assume there is some result ;)
         const bestScore = this.state.ranking[0].totalPoints
         return points > 0 ? (points / bestScore) * 100 : 0
     }
@@ -34,6 +36,7 @@ class Stats extends Component {
                     this.state.ranking
                         .map((kudos, index) =>
                         <li key={index}>
+                            {/* Great! I love this approach, very flexible; would be great to see similar in Card.js */}
                             <Points>{kudos.totalPoints}</Points>
                             <Bar best={!index} height={this.calculateBar(kudos.totalPoints)}/>
                             <Name>{kudos.name}</Name>

@@ -45,6 +45,7 @@ const StyledList = styled.ul`
    border-radius: 20px;
    padding: 40px;
    border: 2px solid ${Colors.Ice};
+   // same as in Header. Li could be a SC with custom Number style (keeping ol instead of ul)
    li {
     display: flex;
     align-items: center;

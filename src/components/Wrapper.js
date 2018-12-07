@@ -7,6 +7,7 @@ import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
 import Instructions from "./Instructions"
 
+// actually, this component has mixed a few roles: one of being a wrapper for everything, one for defining a styles, third of routing
 class Wrapper extends Component {
     render() {
         return (

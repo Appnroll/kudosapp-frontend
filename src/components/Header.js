@@ -47,6 +47,7 @@ const StyledHeader = styled.header`
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  // it should be some styled component; avoid styling children for better maintainability
   & > div {
       display: flex;
       justify-content: space-between;

@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Colors from '../constants/Colors'
 
+const withSign = (number) => {
+    const sg = Math.sign(number)
+    let sgTxt = ''
+    if (sg === 1) {
+        sgTxt = '+'
+    } else if (sg === -1) {
+        sgTxt = '-'
+    }
+    return `${sgTxt}${number}`
+}
+
 class Card extends Component {
     isSlackUser (username) {
         return username[0] === '@'
@@ -17,7 +28,7 @@ class Card extends Component {
                         <KudosMan slackUser={this.isSlackUser(name)}> {name}</KudosMan>
                     </h6>
                     <KudosPoints>
-                        {points > 0 ? '+' + points : points}
+                        {withSign(points)}
                     </KudosPoints>
                 </Row>
                 <KudosContent>

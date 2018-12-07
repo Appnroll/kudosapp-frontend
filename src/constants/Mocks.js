@@ -46,7 +46,7 @@ export const kudosStats = [
         totalPoints: 1500
     },
     {
-        name: 'argo',
+        name: 'argo', // :D
         totalPoints: -10
     }
 ]

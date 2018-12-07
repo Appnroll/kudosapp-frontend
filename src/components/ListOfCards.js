@@ -7,6 +7,7 @@ class ListOfCards extends Component {
     state = {
         kudoses: []
     }
+    // such actions are better in didMount, as the action getKudoses may finish before component is actually mounted
     componentWillMount () {
         getKudoses()
             .then(kudoses => {
