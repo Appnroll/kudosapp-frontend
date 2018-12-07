@@ -5,6 +5,7 @@ import Colors from '../constants/Colors'
 import { Switch, Route } from 'react-router-dom'
 import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
+import Instructions from "./Instructions"
 
 class Wrapper extends Component {
     render() {
@@ -13,7 +14,8 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path='/wall' component={ListOfCards}/>
+                        <Route exact path={'/'} component={Instructions}/>
+                        <Route path='/wall' component={ListOfCards}/>
                         <Route path='/stats' component={Stats}/>
                     </Switch>
                 </Container>

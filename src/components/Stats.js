@@ -48,7 +48,6 @@ class Stats extends Component {
 const StyledList = styled.ul`
    margin: 50px auto 0;
    display: flex;
-   justify-content: center;
    overflow-x: scroll;
    padding: 20px 20px 60px;
    li {
