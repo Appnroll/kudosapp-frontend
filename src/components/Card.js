@@ -4,21 +4,22 @@ import Colors from '../constants/Colors'
 
 class Card extends Component {
     render() {
+        const { name, points, description, from } = this.props.kudos
         return (
             <StyledCard>
                 <Row>
                     <h6>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan> @{this.props.kudos.name}</KudosMan>
+                        <KudosMan> @{name}</KudosMan>
                     </h6>
-                    <KudosPoints>+{this.props.kudos.points}</KudosPoints>
+                    <KudosPoints>+{points}</KudosPoints>
                 </Row>
                 <KudosContent>
-                    {this.props.kudos.description}
+                    {description}
                 </KudosContent>
                 <KudosAuthor>
-                    by <KudosMan>@tuhaj</KudosMan>
+                    by <KudosMan>@{from}</KudosMan>
                 </KudosAuthor>
             </StyledCard>
         );
@@ -28,6 +29,7 @@ class Card extends Component {
 const StyledCard = styled.li`
   width: 100%;
   background: ${Colors.White};
+  box-sizing: border-box;
   border-radius: 15px;
   min-height: 50px;
   margin-top: 20px;

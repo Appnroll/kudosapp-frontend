@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import Colors from "../constants/Colors";
-import { Route, Link, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Logo from './Logo'
 
 export const headerHeight = 70
@@ -10,7 +10,10 @@ class Header extends Component {
     render() {
         return (
             <StyledHeader>
-                <Logo/>
+                <Title>
+                    <Logo/>
+                    KUDOS<span>ME</span>
+                </Title>
                 <Menu>
                     <li>
                         <Link to="/wall">Wall</Link>
@@ -38,8 +41,19 @@ const StyledHeader = styled.header`
 const Menu = styled.ul`
   display: flex;
   li {
-    margin-left: 15px;
-    color: ${Colors.GlacierBlue}
+    font-size: 12px;
+    margin-left: 25px;
+    color: ${Colors.WarmGray}
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+`
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 25px;
+  span {
+    color: ${Colors.Banana}
   }
 `
 export default withRouter(Header);
