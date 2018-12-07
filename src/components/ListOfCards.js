@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import { kudosList } from "../constants/Mocks";
 import Card from "./Card";
 import { getKudoses } from '../api/KudosApi'
 

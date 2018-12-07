@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import Colors from "../constants/Colors";
-import { Route, NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import Logo from './Logo'
 
 export const headerHeight = 70

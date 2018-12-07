@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import { kudosStats } from "../constants/Mocks";
 import Colors from '../constants/Colors'
 import { getKudosesStats } from "../api/KudosApi";
 
