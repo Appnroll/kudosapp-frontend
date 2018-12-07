@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/kup-kudosapp-frontend/precache-manifest.e37b37cb81ae8c00c58aa1ac1e8dcd08.js"
+  "/kup-kudosapp-frontend/precache-manifest.6eac1223c6b1868aa0a0cc1b402a030b.js"
 );
 
 workbox.clientsClaim();
