@@ -14,9 +14,9 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route path='/instructions' component={Instructions}/>
-                        <Route path='/wall' component={ListOfCards}/>
-                        <Route path='/stats' component={Stats}/>
+                        <Route path={process.env.PUBLIC_URL + '/instructions'} component={Instructions}/>
+                        <Route path={process.env.PUBLIC_URL + '/wall'} component={ListOfCards}/>
+                        <Route path={process.env.PUBLIC_URL + '/stats'} component={Stats}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>
