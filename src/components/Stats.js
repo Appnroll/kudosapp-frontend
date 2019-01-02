@@ -9,7 +9,7 @@ class Stats extends Component {
         ranking: [],
         loading: true
     }
-    componentWillMount () {
+    componentDidMount () {
         getKudosesStats()
             .then(ranking => ranking.sort(this.compare))
             .then(ranking => {

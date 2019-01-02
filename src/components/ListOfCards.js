@@ -9,7 +9,7 @@ class ListOfCards extends Component {
         kudoses: [],
         loading: true
     }
-    componentWillMount () {
+    componentDidMount () {
         getKudoses()
             .then(kudoses => {
                 this.setState({
@@ -30,6 +30,7 @@ class ListOfCards extends Component {
         );
     }
 }
+
 
 const StyledList = styled.ul`
    max-width: 500px;
