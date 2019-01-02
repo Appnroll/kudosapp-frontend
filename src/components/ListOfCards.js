@@ -2,24 +2,29 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Card from "./Card";
 import { getKudoses } from '../api/KudosApi'
+import Spinner from "./Spinner";
 
 class ListOfCards extends Component {
     state = {
-        kudoses: []
+        kudoses: [],
+        loading: true
     }
     componentWillMount () {
         getKudoses()
             .then(kudoses => {
                 this.setState({
-                    kudoses
+                    kudoses,
+                    loading: false
                 })
             })
     }
     render() {
+        const { loading, kudoses } = this.state
         return (
             <StyledList>
                 {
-                    this.state.kudoses.map((kudos, index) => <Card kudos={kudos} key={index}/>)
+                    loading ? <Spinner/> :
+                    kudoses.map((kudos, index) => <Card kudos={kudos} key={index}/>)
                 }
             </StyledList>
         );
