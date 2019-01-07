@@ -53,5 +53,5 @@ const months = [
 
 export const getMonthNameByIndex = index => months[index].name
 export const getMonthIndexByAbbreviation = abbreviation => months.findIndex(month => month.abbreviation === abbreviation)
-export const getCurrentMonth = () => currentMonth
-export const isFutureMonth = (month, year = getCurrentYear()) => console.log(month, year) || year > getCurrentYear() || (year === getCurrentYear() && month > getCurrentMonth())
+export const isCurrentMonth = month => month === currentMonth
+export const isFutureMonth = (month, year = getCurrentYear()) => console.log(month, year) || year > getCurrentYear() || (year === getCurrentYear() && month > currentMonth)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getKudosesGiversStats} from "../api/KudosApi";
 import DateNavigation from "./DateNavigation";
-import {getMonthIndexByAbbreviation, isFutureMonth} from "../utils/months";
+import {getMonthIndexByAbbreviation, isCurrentMonth, isFutureMonth} from "../utils/months";
 import GiversStats from "./GiversStats";
 
 class Givers extends Component {
@@ -27,6 +27,15 @@ class Givers extends Component {
         }, {})
         this.setState({stats: parsed})
     }
+    renderNoStats (month, year) {
+        if (isCurrentMonth(month)) {
+            return <p>It's a fresh month. So many KUDOS are waiting to be given. You can even give one yourself!</p>
+        } else if (isFutureMonth(month - 1, year)) {
+            return <p>This month is in the future. It's full of possibilities. KUDOS will flow.</p>
+        } else {
+            return <p>This month, nobody gave a KUDO.</p>
+        }
+    }
     render () {
         const {year, month} = this.props.match.params
         const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
@@ -36,9 +45,7 @@ class Givers extends Component {
                 {
                     currentStats ?
                         <GiversStats stats={currentStats}/> :
-                        isFutureMonth(month - 1, +year) ?
-                            <p>This month is in the future. KUDOS will flow.</p> :
-                            <p>This month, nobody gave a KUDO.</p>
+                        this.renderNoStats(month - 1, +year)
                 }
             </div>
         )
