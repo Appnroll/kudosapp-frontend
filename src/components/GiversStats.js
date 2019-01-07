@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
+import StatsList from "./StatsList";
 
 class GiversStats extends Component {
-    render() {
-        const { stats } = this.props
+    static getDerivedStateFromProps ({stats}) {
+        if (!stats) {
+            return null
+        }
+        return {
+            stats: stats.map(({from, quantity}) => ({label: from, value: quantity}))
+        }
+    }
+    state = {
+        stats: []
+    }
+    render () {
         return (
-            <pre>
-                {JSON.stringify(stats, null, 4)}
-            </pre>
+            <StatsList stats={this.state.stats}/>
         )
     }
 }

@@ -32,6 +32,7 @@ class Givers extends Component {
         const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
         return (
             <div>
+                <h1>Givers</h1>
                 <DateNavigation currentYear={year} currentMonth={month}/>
                 <GiversStats stats={currentStats}/>
             </div>
