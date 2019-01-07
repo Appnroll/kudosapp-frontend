@@ -23,7 +23,7 @@ class Instructions extends Component {
                     <li>
                         <Number>3</Number>
                         <Description>
-                            Type <Code>/kudos&nbsp;@somebody; thank&nbsp;you for&nbsp;being&nbsp;awesome; 100</Code>
+                            Type <Code>/kudos&nbsp;@somebody; thank&nbsp;you for&nbsp;being&nbsp;awesome;</Code>
                         </Description>
                     </li>
                     <li>
