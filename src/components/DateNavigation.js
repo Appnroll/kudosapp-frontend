@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import Colors from "../constants/Colors";
 import { getMonthNameByIndex } from "../utils/months";
+import {getYears} from "../utils/years";
 
 class DateNavigation extends Component {
     render () {
@@ -10,7 +11,7 @@ class DateNavigation extends Component {
             <nav>
                 <ul>
                     {
-                        ['2018', '2019'].map(year =>
+                        getYears().map(year =>
                             <li key={year}>
                                 <NavLink to={`${process.env.PUBLIC_URL}/stats/givers/${year}/${currentMonth}`}
                                          activeStyle={{color: Colors.Banana}} key={year}>
