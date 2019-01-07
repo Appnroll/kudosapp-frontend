@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {getKudosesGiversStats} from "../api/KudosApi";
 import DateNavigation from "./DateNavigation";
-
+import {getMonthIndexByAbbreviation} from "../utils/months";
+import GiversStats from "./GiversStats";
 
 class Givers extends Component {
     state = {
@@ -9,16 +10,30 @@ class Givers extends Component {
     }
     componentDidMount () {
         getKudosesGiversStats()
-            .then(this.storeStats)
+            .then(stats => this.storeStats(stats))
     }
     storeStats (stats) {
-        console.log(stats);
+        const parsed = stats.reduce((acc, {year, month, from, quantity}) => {
+            // TODO: when API changes returned data, this will have to change.
+            const monthIndex = getMonthIndexByAbbreviation(month)
+            if (!acc[year]) {
+                acc[year] = {}
+            }
+            if (!acc[year][monthIndex]) {
+                acc[year][monthIndex] = []
+            }
+            acc[year][monthIndex].push({from, quantity: Number(quantity)})
+            return acc
+        }, {})
+        this.setState({stats: parsed})
     }
     render () {
         const {year, month} = this.props.match.params
+        const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
         return (
             <div>
                 <DateNavigation currentYear={year} currentMonth={month}/>
+                <GiversStats stats={currentStats}/>
             </div>
         )
     }

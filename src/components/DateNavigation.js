@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {NavLink} from "react-router-dom";
+import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
 import Colors from "../constants/Colors";
-import {getMonthNameByIndex} from "../utils/months";
+import { getMonthNameByIndex } from "../utils/months";
 
 class DateNavigation extends Component {
-    render() {
-        const {currentYear, currentMonth} = this.props
+    render () {
+        const { currentYear, currentMonth } = this.props
         return (
             <nav>
                 <ul>
