@@ -3,26 +3,30 @@ import styled from "styled-components";
 import Colors from "../constants/Colors";
 
 class StatsList extends Component {
+    static getDerivedStateFromProps({stats}) {
+        return {
+            top: stats.reduce((top, {value}) => value > top ? value : top, 0)
+        }
+    }
+    state = {
+        top: 0
+    }
     calculateBar (points) {
         // const bestScore = thxis.state.ranking[0].totalPoints
-        const bestScore = 9 // TODO
+        const bestScore = this.state.top
 
         return points > 0 ? (points / bestScore) * 100 : 0
     }
-    componentWillUpdate(nextProps, nextState, nextContext) {
-        console.log('will up', nextProps)
-    }
-
     render () {
         const { stats } = this.props
         return (
             <StyledList>
                 {
-                    stats.map((kudos, index) =>
+                    stats.map(({value, label}, index) =>
                         <li key={index}>
-                            <Points>{kudos.totalPoints}</Points>
-                            <Bar best={!index} height={this.calculateBar(kudos.totalPoints)}/>
-                            <Name>{kudos.name}</Name>
+                            <Points>{value}</Points>
+                            <Bar best={value === this.state.top} height={this.calculateBar(value)}/>
+                            <Label>{label}</Label>
                         </li>
                     )
                 }
@@ -54,7 +58,7 @@ const Points = styled.div`
   width: 100%;
   text-align: center;
 `
-const Name = styled.div`
+const Label = styled.div`
   width: 100%;
   text-align: center;
 `
