@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Colors from '../constants/Colors'
 import { getKudosesStats } from "../api/KudosApi";
+import Spinner from "./Spinner";
 
 class Stats extends Component {
     state = {
-        ranking: []
+        ranking: [],
+        loading: true
     }
-    componentWillMount () {
+    componentDidMount () {
         getKudosesStats()
             .then(ranking => ranking.sort(this.compare))
             .then(ranking => {
                 this.setState({
-                    ranking
+                    ranking,
+                    loading: false
                 })
             })
     }
@@ -28,11 +31,12 @@ class Stats extends Component {
         return points > 0 ? (points / bestScore) * 100 : 0
     }
     render() {
+        const { loading, ranking } = this.state
         return (
+            loading ? <Spinner/> :
             <StyledList>
                 {
-                    this.state.ranking
-                        .map((kudos, index) =>
+                    ranking.map((kudos, index) =>
                         <li key={index}>
                             <Points>{kudos.totalPoints}</Points>
                             <Bar best={!index} height={this.calculateBar(kudos.totalPoints)}/>
