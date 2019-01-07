@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {getKudosesGiversStats} from "../api/KudosApi";
+import { getKudosesGiversStats } from "../api/KudosApi";
 import DateNavigation from "./DateNavigation";
-import {getMonthIndexByAbbreviation, isCurrentMonth, isFutureMonth} from "../utils/months";
+import { getMonthIndexByAbbreviation, isCurrentMonth, isFutureMonth } from "../utils/months";
 import GiversStats from "./GiversStats";
+import styled from "styled-components";
+import {isCurrentYear} from "../utils/years";
 
 class Givers extends Component {
     state = {
@@ -28,12 +30,27 @@ class Givers extends Component {
         this.setState({stats: parsed})
     }
     renderNoStats (month, year) {
-        if (isCurrentMonth(month)) {
-            return <p>It's a fresh month. So many KUDOS are waiting to be given. You can even give one yourself!</p>
-        } else if (isFutureMonth(month - 1, year)) {
-            return <p>This month is in the future. It's full of possibilities. KUDOS will flow.</p>
+        if (isCurrentMonth(month) && isCurrentYear(year)) {
+            return (
+                <NoItemText>
+                    It's a fresh month. So many KUDOS are waiting to be given. You can even give one yourself!
+                    <span>💖</span>
+                </NoItemText>
+            )
+        } else if (isFutureMonth(month, year)) {
+            return (
+                <NoItemText>
+                    This month is in the future. It's full of possibilities. KUDOS will flow.
+                    <span>🙏</span>
+                </NoItemText>
+            )
         } else {
-            return <p>This month, nobody gave a KUDO.</p>
+            return (
+                <NoItemText>
+                    This month, nobody gave a KUDO.
+                    <span>🥀</span>
+                </NoItemText>
+            )
         }
     }
     render () {
@@ -51,5 +68,18 @@ class Givers extends Component {
         )
     }
 }
+
+const NoItemText = styled.p`
+  margin: 5rem auto 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  font-size: 3rem;
+  font-weight: 100;
+  text-align: center;
+  line-height: 1.5;
+  color: cornflowerblue;
+`
 
 export default Givers
