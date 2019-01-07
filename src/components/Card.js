@@ -8,24 +8,26 @@ class Card extends Component {
     }
     render() {
         const { name, points, description, from } = this.props.kudos
+        console.log(this.props.kudos)
         return (
             <StyledCard>
-                <Row>
+                <Row margin={'0 0 8px'}>
                     <h6>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan slackUser={this.isSlackUser(name)}> {name}</KudosMan>
+                        <KudosMan slackUser={this.isSlackUser(name)}> {name[0] === '@' ? name.substring(1, name.length) : name}</KudosMan>
                     </h6>
-                    <KudosPoints>
-                        {points > 0 ? '+' + points : points}
-                    </KudosPoints>
+                    <Avatar image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>
                 </Row>
                 <KudosContent>
                     {description}
                 </KudosContent>
-                <KudosAuthor>
-                    by <KudosMan slackUser={this.isSlackUser(from)}>{from}</KudosMan>
-                </KudosAuthor>
+                <Row margin={'15px 0 0'}>
+                    <KudosAuthor>
+                        by <KudosMan slackUser={this.isSlackUser(from)}>{from}</KudosMan>
+                    </KudosAuthor>
+                    {/*<Avatar mini image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>*/}
+                </Row>
             </StyledCard>
         );
     }
@@ -35,18 +37,23 @@ const StyledCard = styled.li`
   width: 100%;
   background: ${Colors.White};
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
   min-height: 50px;
   margin-top: 20px;
   padding: 20px;
-  border: 2px solid ${Colors.Ice};
-  h6 {
-    margin-bottom: 10px;
-  }
 `
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: ${props => props.margin};
+`
+const Column = styled.div`
+  width: ${props => props.width};
+  display: flex;
+  flex-direction: column;
+  margin: ${props => props.margin};
+  height: 100%;
 `
 const KudosTitle = styled.strong`
   font-weight: bold;
@@ -65,6 +72,14 @@ const KudosContent = styled.p`
 `
 const KudosAuthor = styled.p`
   font-size: 12px;
-  margin-top: 20px;
 `
+const Avatar = styled.div`
+  height: ${props => props.mini ? '20px' : '25px'};
+  width: ${props => props.mini ? '20px' : '25px'};
+  margin: ${props => props.mini ? '0 2.5px' : '0'}
+  border-radius: 50%;
+  background-image: url(${props => props.image});
+  background-size: cover;
+`
+
 export default Card;
