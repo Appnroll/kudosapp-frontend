@@ -7,3 +7,4 @@ const years = Array(currentYear - baseYear + 1)
     .map((value, index) => baseYear + index)
 
 export const getYears = () => years
+export const getCurrentYear = () => currentYear

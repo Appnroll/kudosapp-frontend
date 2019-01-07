@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getKudosesGiversStats} from "../api/KudosApi";
 import DateNavigation from "./DateNavigation";
-import {getMonthIndexByAbbreviation} from "../utils/months";
+import {getMonthIndexByAbbreviation, isFutureMonth} from "../utils/months";
 import GiversStats from "./GiversStats";
 
 class Givers extends Component {
@@ -32,9 +32,14 @@ class Givers extends Component {
         const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
         return (
             <div>
-                <h1>Givers</h1>
                 <DateNavigation currentYear={year} currentMonth={month}/>
-                <GiversStats stats={currentStats}/>
+                {
+                    currentStats ?
+                        <GiversStats stats={currentStats}/> :
+                        isFutureMonth(month - 1, +year) ?
+                            <p>This month is in the future. KUDOS will flow.</p> :
+                            <p>This month, nobody gave a KUDO.</p>
+                }
             </div>
         )
     }
