@@ -7,8 +7,7 @@ class Card extends Component {
         return username[0] === '@'
     }
     render() {
-        const { name, points, description, from } = this.props.kudos
-        console.log(this.props.kudos)
+        const { name, description, from } = this.props.kudos
         return (
             <StyledCard>
                 <Row margin={'0 0 8px'}>
@@ -62,9 +61,6 @@ const KudosTitle = styled.strong`
 `
 const KudosMan = styled.span`
   color: ${props => props.slackUser ? Colors.GlacierBlue : Colors.WarmGray}
-`
-const KudosPoints = styled.div`
-  color: ${Colors.Banana}
 `
 const KudosContent = styled.p`
   font-size: 16px;
