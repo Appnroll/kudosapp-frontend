@@ -1,57 +1,7 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
 import Colors from "../constants/Colors";
-
-const months = [
-    {
-        "abbreviation": "Jan",
-        "name": "January"
-    },
-    {
-        "abbreviation": "Feb",
-        "name": "February"
-    },
-    {
-        "abbreviation": "Mar",
-        "name": "March"
-    },
-    {
-        "abbreviation": "Apr",
-        "name": "April"
-    },
-    {
-        "abbreviation": "May",
-        "name": "May"
-    },
-    {
-        "abbreviation": "Jun",
-        "name": "June"
-    },
-    {
-        "abbreviation": "Jul",
-        "name": "July"
-    },
-    {
-        "abbreviation": "Aug",
-        "name": "August"
-    },
-    {
-        "abbreviation": "Sep",
-        "name": "September"
-    },
-    {
-        "abbreviation": "Oct",
-        "name": "October"
-    },
-    {
-        "abbreviation": "Nov",
-        "name": "November"
-    },
-    {
-        "abbreviation": "Dec",
-        "name": "December"
-    }
-]
+import {getMonthNameByIndex} from "../utils/months";
 
 class DateNavigation extends Component {
     render() {
@@ -76,7 +26,7 @@ class DateNavigation extends Component {
                             <li key={index}>
                                 <NavLink to={`${process.env.PUBLIC_URL}/stats/givers/${currentYear}/${index + 1}`}
                                          activeStyle={{color: Colors.Banana}}>
-                                    {months[index].name}
+                                    {getMonthNameByIndex(index)}
                                 </NavLink>
                             </li>
                         )
