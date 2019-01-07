@@ -12,9 +12,7 @@ class StatsList extends Component {
         top: 0
     }
     calculateBar (points) {
-        // const bestScore = thxis.state.ranking[0].totalPoints
         const bestScore = this.state.top
-
         return points > 0 ? (points / bestScore) * 100 : 0
     }
     render () {
