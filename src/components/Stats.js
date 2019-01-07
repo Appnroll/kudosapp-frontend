@@ -20,11 +20,7 @@ class Stats extends Component {
             })
     }
     compare(a, b) {
-        if (a.totalPoints > b.totalPoints)
-            return -1;
-        else if (a.totalPoints < b.totalPoints)
-            return 1;
-        return 0;
+        return b.totalPoints - a.totalPoints
     }
     calculateBar (points) {
         const bestScore = this.state.ranking[0].totalPoints
