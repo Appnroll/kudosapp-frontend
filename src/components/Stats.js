@@ -21,10 +21,6 @@ class Stats extends Component {
     compare(a, b) {
         return b.totalPoints - a.totalPoints
     }
-    calculateBar (points) {
-        const bestScore = this.state.ranking[0].totalPoints
-        return points > 0 ? (points / bestScore) * 100 : 0
-    }
     render() {
         const { loading, ranking } = this.state
         return (
