@@ -9,3 +9,5 @@ const years = Array(currentYear - baseYear + 1)
 export const getYears = () => years
 export const getCurrentYear = () => currentYear
 export const isCurrentYear = year => year === currentYear
+export const getBaseYear = () => baseYear
+
