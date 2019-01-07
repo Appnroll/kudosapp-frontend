@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { NavLink } from "react-router-dom";
 import Colors from "../constants/Colors";
-import { getMonthNameByIndex } from "../utils/months";
-import { getYears } from "../utils/years";
+import { getMonthNameByIndex, isCurrentMonth } from "../utils/months";
+import { getYears, isCurrentYear } from "../utils/years";
 
 class DateNavigation extends Component {
     render () {
         const { currentYear, currentMonth } = this.props
+        console.log(isCurrentMonth(0) && isCurrentYear(+currentYear));
         return (
             <Navigation>
                 <List>
@@ -25,7 +26,7 @@ class DateNavigation extends Component {
                 <List supplementary>
                     {
                         Array(12).fill(0).map((month, index) =>
-                            <Item key={index}>
+                            <Item key={index} current={isCurrentMonth(index) && isCurrentYear(+currentYear)}>
                                 <NavLink to={`${process.env.PUBLIC_URL}/stats/givers/${currentYear}/${index + 1}`}
                                          activeStyle={{color: Colors.Banana}}>
                                     {getMonthNameByIndex(index)}
@@ -51,6 +52,18 @@ const List = styled.ul`
 
 const Item = styled.li`
   padding: .5em;
+  ${props =>
+    props.current ? css`
+      position: relative;
+      &:after {
+        content: '⭐️';
+        position: absolute;
+        top: -5px;
+        left: calc(50% - 6px);
+        font-size: 0.6em;
+      }
+    ` : ''
+  }
 `
 
 export default DateNavigation
