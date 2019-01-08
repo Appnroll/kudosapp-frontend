@@ -12,3 +12,9 @@ export const getKudosesStats = () => {
             return response.json()
         })
 }
+export const getKudosesGiversStats = () => {
+    return fetch(endpoint + 'kudos/from')
+        .then(response => {
+            return response.json()
+        })
+}
