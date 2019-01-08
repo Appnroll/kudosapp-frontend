@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled, {css} from 'styled-components';
 import {NavLink} from "react-router-dom";
 import Colors from "../constants/Colors";
-import {getMonthNameByIndex, isCurrentMonth} from "../utils/months";
+import {getMonthNameByIndex, getMonthsNames, isCurrentMonth} from "../utils/months";
 import {getBaseYear, getCurrentYear, getYears, isCurrentYear} from "../utils/years";
 
 class DateNavigation extends Component {
@@ -39,11 +39,11 @@ class DateNavigation extends Component {
                     </List>
                     <List supplementary>
                         {
-                            Array(12).fill(0).map((month, index) =>
-                                <Item key={index} current={isCurrentMonth(index) && isCurrentYear(+currentYear)}>
-                                    <NavLink to={this.createUrl(index + 1, currentYear)}
+                            getMonthsNames().map((monthName, month) =>
+                                <Item key={month} current={isCurrentMonth(month) && isCurrentYear(+currentYear)}>
+                                    <NavLink to={this.createUrl(month + 1, currentYear)}
                                              activeStyle={{color: Colors.Banana}}>
-                                        {getMonthNameByIndex(index)}
+                                        {monthName}
                                     </NavLink>
                                 </Item>
                             )

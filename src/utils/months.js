@@ -1,6 +1,15 @@
 import {getCurrentYear} from "./years";
 const currentMonth = (new Date()).getMonth()
-const months = [
+const monthsNames = (() => {
+    const date = new Date()
+    return Array(12)
+        .fill(0)
+        .map((value, index) => {
+            date.setMonth(index)
+            return date.toLocaleDateString('en', {month: 'long'})
+        })
+})()
+const TEMP_monthsWithAbbreviations = [
     {
         "abbreviation": "Jan",
         "name": "January"
@@ -51,7 +60,8 @@ const months = [
     }
 ]
 
-export const getMonthNameByIndex = index => months[index].name
-export const getMonthIndexByAbbreviation = abbreviation => months.findIndex(month => month.abbreviation === abbreviation)
+export const getMonthsNames = () => monthsNames.slice()
+export const getMonthNameByIndex = index => monthsNames[index]
+export const getMonthIndexByAbbreviation = abbreviation => TEMP_monthsWithAbbreviations.findIndex(month => month.abbreviation === abbreviation)
 export const isCurrentMonth = month => month === currentMonth
 export const isFutureMonth = (month, year = getCurrentYear()) => year > getCurrentYear() || (year === getCurrentYear() && month > currentMonth)
