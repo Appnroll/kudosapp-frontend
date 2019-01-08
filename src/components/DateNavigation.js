@@ -1,11 +1,15 @@
-import React, {Component} from 'react';
-import styled, {css} from 'styled-components';
-import {NavLink} from "react-router-dom";
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+import { NavLink } from "react-router-dom";
 import Colors from "../constants/Colors";
-import {getMonthNameByIndex, getMonthsNames, isCurrentMonth} from "../utils/months";
-import {getBaseYear, getCurrentYear, getYears, isCurrentYear} from "../utils/years";
+import { getMonthsNames, isCurrentMonth } from "../utils/months";
+import { getBaseYear, getCurrentYear, getYears, isCurrentYear } from "../utils/years";
 
 class DateNavigation extends Component {
+    isMonthCurrent(month) {
+        const {currentYear} = this.props
+        return isCurrentMonth(month) && isCurrentYear(+currentYear)
+    }
     createUrl (month, year) {
         return `${process.env.PUBLIC_URL}/stats/givers/${year}/${month}`
     }
@@ -19,13 +23,13 @@ class DateNavigation extends Component {
         const year = currentMonth === 12 ? currentYear + 1 : currentYear
         return year > getCurrentYear() ? '' : this.createUrl(month, year)
     }
-    render() {
+    render () {
         const {currentYear, currentMonth} = this.props
         return (
             <Navigation>
                 <LeftDirectionalButton to={this.createPrevLink(+currentMonth, +currentYear)}/>
                 <Dates>
-                    <List>
+                    <YearsList>
                         {
                             getYears().map(year =>
                                 <Item key={year}>
@@ -36,11 +40,18 @@ class DateNavigation extends Component {
                                 </Item>
                             )
                         }
-                    </List>
-                    <List supplementary>
+                    </YearsList>
+                    <MonthsSelect>
                         {
                             getMonthsNames().map((monthName, month) =>
-                                <Item key={month} current={isCurrentMonth(month) && isCurrentYear(+currentYear)}>
+                                <option key={month}>{monthName}{this.isMonthCurrent(month) ? ' (current)' : ''}</option>
+                            )
+                        }
+                    </MonthsSelect>
+                    <MonthsList>
+                        {
+                            getMonthsNames().map((monthName, month) =>
+                                <Item key={month} current={this.isMonthCurrent(month)}>
                                     <NavLink to={this.createUrl(month + 1, currentYear)}
                                              activeStyle={{color: Colors.Banana}}>
                                         {monthName}
@@ -48,7 +59,7 @@ class DateNavigation extends Component {
                                 </Item>
                             )
                         }
-                    </List>
+                    </MonthsList>
                 </Dates>
                 <RightDirectionalButton to={this.createNextLink(+currentMonth, +currentYear)}/>
             </Navigation>
@@ -71,7 +82,23 @@ const Dates = styled.div`
 const List = styled.ul`
   display: flex;
   justify-content: center;
-  font-size: ${props => props.supplementary ? 1.2 : 1.5}rem;
+`
+
+const YearsList = styled(List)`
+  font-size: 1.5rem
+`
+
+const MonthsList = styled(List)`
+  font-size: 1.2rem;
+  @media screen and (max-width: 1099px) {
+    display: none;
+  }
+`
+
+const MonthsSelect = styled.select`
+  @media screen and (min-width: 1100px) {
+    display: none;
+  }
 `
 
 const Item = styled.li`
