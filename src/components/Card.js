@@ -3,28 +3,25 @@ import styled from 'styled-components'
 import Colors from '../constants/Colors'
 
 class Card extends Component {
-    isSlackUser (username) {
-        return username[0] === '@'
-    }
     render() {
-        const { name, points, description, from } = this.props.kudos
-        console.log(this.props.kudos)
+        const { name, description, from } = this.props.kudos
+
         return (
             <StyledCard>
-                <Row margin={'0 0 8px'}>
+                <Row>
                     <h6>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan slackUser={this.isSlackUser(name)}> {name[0] === '@' ? name.substring(1, name.length) : name}</KudosMan>
+                        <KudosMan> {name[0] === '@' ? name.substring(1, name.length) : name}</KudosMan>
                     </h6>
                     <Avatar image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>
                 </Row>
                 <KudosContent>
                     {description}
                 </KudosContent>
-                <Row margin={'15px 0 0'}>
+                <Row>
                     <KudosAuthor>
-                        by <KudosMan slackUser={this.isSlackUser(from)}>{from}</KudosMan>
+                        by <KudosMan>{from}</KudosMan>
                     </KudosAuthor>
                     {/*<Avatar mini image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>*/}
                 </Row>
@@ -46,14 +43,6 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: ${props => props.margin};
-`
-const Column = styled.div`
-  width: ${props => props.width};
-  display: flex;
-  flex-direction: column;
-  margin: ${props => props.margin};
-  height: 100%;
 `
 const KudosTitle = styled.strong`
   font-weight: bold;
@@ -61,14 +50,12 @@ const KudosTitle = styled.strong`
   margin-right: 3px;
 `
 const KudosMan = styled.span`
-  color: ${props => props.slackUser ? Colors.GlacierBlue : Colors.WarmGray}
-`
-const KudosPoints = styled.div`
-  color: ${Colors.Banana}
+  color: ${Colors.GlacierBlue}
 `
 const KudosContent = styled.p`
   font-size: 16px;
   font-weight: 300;
+  margin: 8px 0 15px;
 `
 const KudosAuthor = styled.p`
   font-size: 12px;
@@ -76,7 +63,7 @@ const KudosAuthor = styled.p`
 const Avatar = styled.div`
   height: ${props => props.mini ? '20px' : '25px'};
   width: ${props => props.mini ? '20px' : '25px'};
-  margin: ${props => props.mini ? '0 2.5px' : '0'}
+  margin: ${props => props.mini ? '0 2.5px' : '0'};
   border-radius: 50%;
   background-image: url(${props => props.image});
   background-size: cover;
