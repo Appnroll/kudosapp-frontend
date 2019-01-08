@@ -37,21 +37,21 @@ class Givers extends Component {
             return (
                 <NoItemText>
                     It's a fresh month. So many KUDOS are waiting to be given. You can even give one yourself!
-                    <span>💖</span>
+                    <span role="img" aria-label="sparkling heart">💖</span>
                 </NoItemText>
             )
         } else if (isFutureMonth(month, year)) {
             return (
                 <NoItemText>
                     This month is in the future. It's full of possibilities. KUDOS will flow.
-                    <span>🙏</span>
+                    <span role="img" aria-label="praying hands">🙏</span>
                 </NoItemText>
             )
         } else {
             return (
                 <NoItemText>
                     This month, nobody gave a KUDO.
-                    <span>🥀</span>
+                    <span role="img" aria-label="withered flower">🥀</span>
                 </NoItemText>
             )
         }
@@ -67,7 +67,6 @@ class Givers extends Component {
     }
     render () {
         const {year, month} = this.props.match.params
-        const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
         return (
             <div>
                 <DateNavigation currentYear={year} currentMonth={month}/>

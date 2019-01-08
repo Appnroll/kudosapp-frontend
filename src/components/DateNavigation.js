@@ -125,9 +125,9 @@ const Item = styled.li`
     }
 `
 
-const DirectionalButton = styled(NavLink).attrs({
-    disabled: props => !props.to
-})`
+const DirectionalButton = styled(NavLink).attrs(props => ({
+    disabled: !props.to
+}))`
   margin-top: 50px;
   width: 30px;
   height: 30px;
