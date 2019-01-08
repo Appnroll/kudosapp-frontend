@@ -5,14 +5,17 @@ import { getMonthIndexByAbbreviation, isCurrentMonth, isFutureMonth } from "../u
 import GiversStats from "./GiversStats";
 import styled from "styled-components";
 import {isCurrentYear} from "../utils/years";
+import Spinner from "./Spinner";
 
 class Givers extends Component {
     state = {
-        stats: {}
+        stats: {},
+        loading: true
     }
     componentDidMount () {
         getKudosesGiversStats()
             .then(stats => this.storeStats(stats))
+            .then(() => this.setState({loading: false}))
     }
     storeStats (stats) {
         const parsed = stats.reduce((acc, {year, month, from, quantity}) => {
@@ -53,6 +56,15 @@ class Givers extends Component {
             )
         }
     }
+    renderStatsSection () {
+        const {year, month} = this.props.match.params
+        const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
+        if (currentStats) {
+            return <GiversStats stats={currentStats}/>
+        } else {
+            return this.renderNoStats(month - 1, +year)
+        }
+    }
     render () {
         const {year, month} = this.props.match.params
         const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
@@ -60,9 +72,7 @@ class Givers extends Component {
             <div>
                 <DateNavigation currentYear={year} currentMonth={month}/>
                 {
-                    currentStats ?
-                        <GiversStats stats={currentStats}/> :
-                        this.renderNoStats(month - 1, +year)
+                    this.state.loading ? <Spinner/> : this.renderStatsSection()
                 }
             </div>
         )
