@@ -104,6 +104,7 @@ const MonthsList = styled(List)`
 `
 
 const MonthsSelect = styled.select`
+  font-size: 1rem;
   @media screen and (min-width: 1100px) {
     display: none;
   }
