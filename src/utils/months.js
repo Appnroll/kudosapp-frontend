@@ -61,7 +61,7 @@ const TEMP_monthsWithAbbreviations = [
 ]
 
 export const getMonthsNames = () => monthsNames.slice()
-export const getMonthNameByIndex = index => monthsNames[index]
+export const getCurrentMonth = () => currentMonth
 export const getMonthIndexByAbbreviation = abbreviation => TEMP_monthsWithAbbreviations.findIndex(month => month.abbreviation === abbreviation)
 export const isCurrentMonth = month => month === currentMonth
 export const isFutureMonth = (month, year = getCurrentYear()) => year > getCurrentYear() || (year === getCurrentYear() && month > currentMonth)

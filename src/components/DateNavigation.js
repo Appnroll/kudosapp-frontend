@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import Colors from "../constants/Colors";
 import { getMonthsNames, isCurrentMonth } from "../utils/months";
 import { getBaseYear, getCurrentYear, getYears, isCurrentYear } from "../utils/years";
 
 class DateNavigation extends Component {
+    get currentMonth() {
+        return Number(this.props.currentMonth)
+    }
+    get currentYear() {
+        return Number(this.props.currentYear)
+    }
     isMonthCurrent(month) {
-        const {currentYear} = this.props
-        return isCurrentMonth(month) && isCurrentYear(+currentYear)
+        return isCurrentMonth(month) && isCurrentYear(this.currentYear)
     }
     createUrl (month, year) {
         return `${process.env.PUBLIC_URL}/stats/givers/${year}/${month}`
@@ -23,17 +28,20 @@ class DateNavigation extends Component {
         const year = currentMonth === 12 ? currentYear + 1 : currentYear
         return year > getCurrentYear() ? '' : this.createUrl(month, year)
     }
+    handleMonthSelect = ({target: {value}}) => {
+        const {history: {push}} = this.props
+        push(this.createUrl( Number(value) + 1, this.currentYear))
+    }
     render () {
-        const {currentYear, currentMonth} = this.props
         return (
             <Navigation>
-                <LeftDirectionalButton to={this.createPrevLink(+currentMonth, +currentYear)}/>
+                <LeftDirectionalButton to={this.createPrevLink(this.currentMonth, this.currentYear)}/>
                 <Dates>
                     <YearsList>
                         {
                             getYears().map(year =>
                                 <Item key={year}>
-                                    <NavLink to={this.createUrl(currentMonth, year)}
+                                    <NavLink to={this.createUrl(this.currentMonth, year)}
                                              activeStyle={{color: Colors.Banana}} key={year}>
                                         {year}
                                     </NavLink>
@@ -41,10 +49,10 @@ class DateNavigation extends Component {
                             )
                         }
                     </YearsList>
-                    <MonthsSelect>
+                    <MonthsSelect value={this.currentMonth - 1} onChange={this.handleMonthSelect}>
                         {
                             getMonthsNames().map((monthName, month) =>
-                                <option key={month}>{monthName}{this.isMonthCurrent(month) ? ' (current)' : ''}</option>
+                                <option key={month} value={month}>{monthName}{this.isMonthCurrent(month) ? ' (current)' : ''}</option>
                             )
                         }
                     </MonthsSelect>
@@ -52,7 +60,7 @@ class DateNavigation extends Component {
                         {
                             getMonthsNames().map((monthName, month) =>
                                 <Item key={month} current={this.isMonthCurrent(month)}>
-                                    <NavLink to={this.createUrl(month + 1, currentYear)}
+                                    <NavLink to={this.createUrl(month + 1, this.currentYear)}
                                              activeStyle={{color: Colors.Banana}}>
                                         {monthName}
                                     </NavLink>
@@ -61,7 +69,7 @@ class DateNavigation extends Component {
                         }
                     </MonthsList>
                 </Dates>
-                <RightDirectionalButton to={this.createNextLink(+currentMonth, +currentYear)}/>
+                <RightDirectionalButton to={this.createNextLink(this.currentMonth, this.currentYear)}/>
             </Navigation>
         )
     }
@@ -143,4 +151,4 @@ const RightDirectionalButton = styled(DirectionalButton)`
   transform: rotate(-135deg)
 `
 
-export default DateNavigation
+export default withRouter(DateNavigation)
