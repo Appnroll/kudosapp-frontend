@@ -7,6 +7,7 @@ import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
 import Instructions from "./Instructions"
 import Givers from "./Givers";
+import LoginScreen from "./LoginScreen";
 
 class Wrapper extends Component {
     render() {
@@ -15,7 +16,7 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path={'/'} component={Instructions}/>
+                        <Route exact path={'/'} component={LoginScreen}/>
                         <Route exact path={'/wall'} component={ListOfCards}/>
                         <Route exact path={'/stats'} component={Stats}/>
                         <Route exact path={'/stats/givers/:year/:month'} component={Givers}/>
