@@ -56,8 +56,9 @@ const KudosMan = styled.span`
 `
 const KudosContent = styled.p`
   font-size: 16px;
+  line-height: 1.4em;
   font-weight: 300;
-  margin: 8px 0 15px;
+  margin: 5px 0 12px;
 `
 const KudosAuthor = styled.p`
   font-size: 12px;
