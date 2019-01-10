@@ -8,6 +8,8 @@ export const headerHeight = 70
 
 class Header extends Component {
     render() {
+        const year = (new Date()).getFullYear()
+        const month = (new Date()).getMonth() + 1
         return (
             <StyledHeader>
                 <div>
@@ -26,6 +28,11 @@ class Header extends Component {
                         <li>
                             <NavLink to={process.env.PUBLIC_URL + "/stats"} activeStyle={{ color: Colors.Banana }}>
                                 Statistics
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={`${process.env.PUBLIC_URL}/stats/givers/${year}/${month}`} activeStyle={{ color: Colors.Banana }}>
+                                TEMP: Givers
                             </NavLink>
                         </li>
                     </Menu>

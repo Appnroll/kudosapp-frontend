@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
 import Instructions from "./Instructions"
+import Givers from "./Givers";
 
 class Wrapper extends Component {
     render() {
@@ -17,6 +18,7 @@ class Wrapper extends Component {
                         <Route exact path={process.env.PUBLIC_URL + '/'} component={Instructions}/>
                         <Route exact path={process.env.PUBLIC_URL + '/wall'} component={ListOfCards}/>
                         <Route exact path={process.env.PUBLIC_URL + '/stats'} component={Stats}/>
+                        <Route exact path={process.env.PUBLIC_URL + '/stats/givers/:year/:month'} component={Givers}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>
