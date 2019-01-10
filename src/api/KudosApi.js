@@ -1,4 +1,4 @@
-const endpoint = 'https://kudos-anr.herokuapp.com/'
+const endpoint = 'https://kudosapp-staging.herokuapp.com/'
 
 export const getKudoses = () => {
     return fetch(endpoint + 'kudos')
@@ -7,7 +7,7 @@ export const getKudoses = () => {
         })
 }
 export const getKudosesStats = () => {
-    return fetch(endpoint + 'kudos/ranking')
+    return fetch(endpoint + 'kudos/given')
         .then(response => {
             return response.json()
         })
