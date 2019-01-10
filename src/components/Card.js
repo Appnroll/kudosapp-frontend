@@ -25,7 +25,7 @@ class Card extends Component {
                     <KudosAuthor>
                         by <KudosMan>{from}</KudosMan>
                     </KudosAuthor>
-                    <Avatar mini image={fromAvatar ? fromAvatar.image_24 : placeholder}></Avatar>
+                    <MiniAvatar image={fromAvatar ? fromAvatar.image_24 : placeholder}></MiniAvatar>
                 </Row>
             </StyledCard>
         );
@@ -64,12 +64,18 @@ const KudosAuthor = styled.p`
   font-size: 12px;
 `
 const Avatar = styled.div`
-  height: ${props => props.mini ? '20px' : '25px'};
-  width: ${props => props.mini ? '20px' : '25px'};
-  margin: ${props => props.mini ? '0 2.5px' : '0'};
+  height: 25px;
+  width: 25px;
+  margin: 0;
   border-radius: 50%;
   background-image: url(${props => props.image});
   background-size: cover;
+`
+const MiniAvatar = styled(Avatar)`
+  height: 20px;
+  width: 20px;
+  margin: 0 2.5px;
+  border-radius: 50%;
 `
 
 export default Card;
