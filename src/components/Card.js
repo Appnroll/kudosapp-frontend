@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Colors from '../constants/Colors'
 
+import placeholder from '../assets/user-placeholder.png'
+
 class Card extends Component {
     render() {
-        const { name, description, from } = this.props.kudos
+        const { givenTo, description, from, givenToAvatar, fromAvatar } = this.props.kudos
 
         return (
             <StyledCard>
@@ -12,9 +14,9 @@ class Card extends Component {
                     <h6>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan> {name[0] === '@' ? name.substring(1, name.length) : name}</KudosMan>
+                        <KudosMan> {givenTo && givenTo[0] === '@' ? givenTo.substring(1, givenTo.length) : givenTo}</KudosMan>
                     </h6>
-                    <Avatar image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>
+                    <Avatar image={givenToAvatar ? givenToAvatar.image_24 : placeholder}></Avatar>
                 </Row>
                 <KudosContent>
                     {description}
@@ -23,7 +25,7 @@ class Card extends Component {
                     <KudosAuthor>
                         by <KudosMan>{from}</KudosMan>
                     </KudosAuthor>
-                    {/*<Avatar mini image={"https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png"}></Avatar>*/}
+                    <Avatar mini image={fromAvatar ? fromAvatar.image_24 : placeholder}></Avatar>
                 </Row>
             </StyledCard>
         );
