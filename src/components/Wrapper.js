@@ -15,10 +15,10 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path={process.env.PUBLIC_URL + '/'} component={Instructions}/>
-                        <Route exact path={process.env.PUBLIC_URL + '/wall'} component={ListOfCards}/>
-                        <Route exact path={process.env.PUBLIC_URL + '/stats'} component={Stats}/>
-                        <Route exact path={process.env.PUBLIC_URL + '/stats/givers/:year/:month'} component={Givers}/>
+                        <Route exact path={'/'} component={Instructions}/>
+                        <Route exact path={'/wall'} component={ListOfCards}/>
+                        <Route exact path={'/stats'} component={Stats}/>
+                        <Route exact path={'/stats/givers/:year/:month'} component={Givers}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>
