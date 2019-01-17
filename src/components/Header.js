@@ -26,7 +26,7 @@ class Header extends Component {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={"/stats"} activeStyle={{ color: Colors.Banana }}>
+                            <NavLink to={"/stats"} activeStyle={{ color: Colors.Banana }} exact>
                                 Statistics
                             </NavLink>
                         </li>
