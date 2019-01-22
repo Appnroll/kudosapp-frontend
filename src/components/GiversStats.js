@@ -7,7 +7,7 @@ class GiversStats extends Component {
             return null
         }
         return {
-            stats: stats.map(({from: {name}, quantity}) => ({label: name, value: quantity}))
+            stats: stats.map(({from, quantity}) => ({label: from, value: quantity}))
         }
     }
     state = {
