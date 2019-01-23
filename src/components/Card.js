@@ -6,18 +6,21 @@ import placeholder from '../assets/user-placeholder.png'
 
 class Card extends Component {
     render() {
-        const { givenTo: receivers, description, from, givenToAvatar, fromAvatar } = this.props.kudos
-        const givenTo = receivers[0] ? receivers[0].name : ''
-
+        const {givenTo, description, from} = this.props.kudos
         return (
             <StyledCard>
                 <Row>
-                    <h6>
+                    <KudosCreator>
                         <KudosTitle>KUDOS </KudosTitle>
                         for
-                        <KudosMan> {givenTo && givenTo[0] === '@' ? givenTo.substring(1, givenTo.length) : givenTo}</KudosMan>
-                    </h6>
-                    <Avatar image={givenToAvatar ? givenToAvatar.image_24 : placeholder}></Avatar>
+                        {givenTo.map((el, index) => {
+                            return (<KudosMan key={index}> {el.name} </KudosMan>)
+                        })}
+                    </KudosCreator>
+                    {givenTo.map((el, index) => {
+                        return (<Avatar image={el.avatar ? el.avatar.image_24 : placeholder} key={index}></Avatar>)
+                    })}
+
                 </Row>
                 <KudosContent>
                     {description}
@@ -26,12 +29,17 @@ class Card extends Component {
                     <KudosAuthor>
                         by <KudosMan>{from.name}</KudosMan>
                     </KudosAuthor>
-                    <MiniAvatar image={fromAvatar ? fromAvatar.image_24 : placeholder}></MiniAvatar>
+                    <MiniAvatar image={from.avatar.image_24 ? from.avatar.image_24 : placeholder}></MiniAvatar>
                 </Row>
             </StyledCard>
         );
     }
 }
+
+
+const KudosCreator = styled.h6`
+  flex-grow: 2
+`
 
 const StyledCard = styled.li`
   width: 100%;
@@ -44,7 +52,7 @@ const StyledCard = styled.li`
 `
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 `
 const KudosTitle = styled.strong`
