@@ -6,7 +6,8 @@ import placeholder from '../assets/user-placeholder.png'
 
 class Card extends Component {
     render() {
-        const { givenTo, description, from, givenToAvatar, fromAvatar } = this.props.kudos
+        const { givenTo: receivers, description, from, givenToAvatar, fromAvatar } = this.props.kudos
+        const givenTo = receivers[0] ? receivers[0].name : ''
 
         return (
             <StyledCard>
@@ -23,7 +24,7 @@ class Card extends Component {
                 </KudosContent>
                 <Row>
                     <KudosAuthor>
-                        by <KudosMan>{from}</KudosMan>
+                        by <KudosMan>{from.name}</KudosMan>
                     </KudosAuthor>
                     <MiniAvatar image={fromAvatar ? fromAvatar.image_24 : placeholder}></MiniAvatar>
                 </Row>
