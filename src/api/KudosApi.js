@@ -7,7 +7,7 @@ export const getKudoses = () => {
         })
 }
 export const getKudosesStats = () => {
-    return fetch(endpoint + 'kudos/given')
+    return fetch(endpoint + 'kudos/rankings')
         .then(response => {
             return response.json()
         })
