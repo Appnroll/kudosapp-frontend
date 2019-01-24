@@ -1,5 +1,5 @@
 // When the app started.
-const baseYear = 2018
+const baseYear = 2016
 const currentYear = (new Date()).getFullYear()
 
 const years = Array(currentYear - baseYear + 1)

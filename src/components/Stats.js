@@ -13,7 +13,7 @@ class Stats extends Component {
             .then(ranking => ranking.sort(this.compare))
             .then(ranking => {
                 this.setState({
-                    ranking: ranking.map(({quantity, givenTo: {name}}) => ({label: name, value: quantity})),
+                    ranking: ranking.map(({totalPoints, user: {name}}) => ({label: name, value: totalPoints})),
                     loading: false
                 })
             })
