@@ -1,8 +1,8 @@
 {
-  "name": "kup-kudosapp-frontend",
+  "name": "kudosapp-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://appnroll.github.io/kup-kudosapp-frontend/",
+  "homepage": "https://appnroll.github.io/kudosapp-frontend/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.6.3",
