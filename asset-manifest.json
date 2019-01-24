@@ -1,13 +1,13 @@
 {
-  "main.css": "/kup-kudosapp-frontend/static/css/main.56100e06.chunk.css",
-  "main.js": "/kup-kudosapp-frontend/static/js/main.d438d089.chunk.js",
-  "main.js.map": "/kup-kudosapp-frontend/static/js/main.d438d089.chunk.js.map",
-  "static/js/1.27f8e7eb.chunk.js": "/kup-kudosapp-frontend/static/js/1.27f8e7eb.chunk.js",
-  "static/js/1.27f8e7eb.chunk.js.map": "/kup-kudosapp-frontend/static/js/1.27f8e7eb.chunk.js.map",
-  "runtime~main.js": "/kup-kudosapp-frontend/static/js/runtime~main.97f2d5d1.js",
-  "runtime~main.js.map": "/kup-kudosapp-frontend/static/js/runtime~main.97f2d5d1.js.map",
-  "static/css/main.56100e06.chunk.css.map": "/kup-kudosapp-frontend/static/css/main.56100e06.chunk.css.map",
-  "index.html": "/kup-kudosapp-frontend/index.html",
-  "precache-manifest.2e9a59e85b4e1bd3a5aa3c9e9391f264.js": "/kup-kudosapp-frontend/precache-manifest.2e9a59e85b4e1bd3a5aa3c9e9391f264.js",
-  "service-worker.js": "/kup-kudosapp-frontend/service-worker.js"
+  "main.css": "/kudosapp-frontend/static/css/main.56100e06.chunk.css",
+  "main.js": "/kudosapp-frontend/static/js/main.ebe06d2a.chunk.js",
+  "main.js.map": "/kudosapp-frontend/static/js/main.ebe06d2a.chunk.js.map",
+  "static/js/1.f3b9e7d2.chunk.js": "/kudosapp-frontend/static/js/1.f3b9e7d2.chunk.js",
+  "static/js/1.f3b9e7d2.chunk.js.map": "/kudosapp-frontend/static/js/1.f3b9e7d2.chunk.js.map",
+  "runtime~main.js": "/kudosapp-frontend/static/js/runtime~main.685dca98.js",
+  "runtime~main.js.map": "/kudosapp-frontend/static/js/runtime~main.685dca98.js.map",
+  "static/css/main.56100e06.chunk.css.map": "/kudosapp-frontend/static/css/main.56100e06.chunk.css.map",
+  "index.html": "/kudosapp-frontend/index.html",
+  "precache-manifest.71a4bc5f8690a7d6deb8d769f0c5ba8f.js": "/kudosapp-frontend/precache-manifest.71a4bc5f8690a7d6deb8d769f0c5ba8f.js",
+  "service-worker.js": "/kudosapp-frontend/service-worker.js"
 }

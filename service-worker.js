@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/kup-kudosapp-frontend/precache-manifest.2e9a59e85b4e1bd3a5aa3c9e9391f264.js"
+  "/kudosapp-frontend/precache-manifest.71a4bc5f8690a7d6deb8d769f0c5ba8f.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/kup-kudosapp-frontend/index.html", {
+workbox.routing.registerNavigationRoute("/kudosapp-frontend/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
