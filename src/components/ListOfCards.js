@@ -12,8 +12,9 @@ class ListOfCards extends Component {
     componentDidMount () {
         getKudoses()
             .then(kudoses => {
+                const sortedKudoses = kudoses.reverse()
                 this.setState({
-                    kudoses,
+                    kudoses: sortedKudoses,
                     loading: false
                 })
             })
