@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginWithSlackButton from "./LoginWithSlackButton";
 import styled from 'styled-components'
 import Colors from "../constants/Colors";
+import Instructions from "../components/Instructions";
 
 class LoginScreen extends Component {
     render () {
@@ -13,13 +14,13 @@ class LoginScreen extends Component {
                 </IntroText>
                 <LoginWithSlackButton/>
                 <Description>We&#39;re happy your here! <span role="img" aria-label="Hug emoji">🤗</span></Description>
+                <Instructions/>
             </Container>
         )
     }
 }
 
 const Container = styled.section`
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +31,7 @@ const Container = styled.section`
 
 const WelcomeText = styled.h1`
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
   color: ${Colors.GlacierBlue};
 `
 
