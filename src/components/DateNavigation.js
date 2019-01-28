@@ -16,7 +16,7 @@ class DateNavigation extends Component {
         return isCurrentMonth(month) && isCurrentYear(this.currentYear)
     }
     createUrl (month, year) {
-        return `${process.env.PUBLIC_URL}/stats/givers/${year}/${month}`
+        return `/stats/givers/${year}/${month}`
     }
     createPrevLink (currentMonth, currentYear) {
         const month = currentMonth === 1 ? 12 : currentMonth - 1
