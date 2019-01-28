@@ -5,7 +5,6 @@ import Colors from '../constants/Colors'
 import { Switch, Route } from 'react-router-dom'
 import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
-import Instructions from "./Instructions"
 import Givers from "./Givers";
 import LoginScreen from "./LoginScreen";
 

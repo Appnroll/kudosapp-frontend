@@ -13,7 +13,7 @@ class LoginScreen extends Component {
                   This app helps to show our thankfulness.
                 </IntroText>
                 <LoginWithSlackButton/>
-                <Description>We&#39;re happy your here! <span role="img" aria-label="Hug emoji">🤗</span></Description>
+                <Description>We&#39;re happy you're here! <span role="img" aria-label="Hug emoji">🤗</span></Description>
                 <Instructions/>
             </Container>
         )
