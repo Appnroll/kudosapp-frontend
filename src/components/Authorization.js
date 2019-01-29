@@ -50,8 +50,6 @@ class Authorization extends Component {
             this.startFromStoredData()
         } else if (this.isAtLogin() && paramToken) {
             this.startSessionFromAPIInfo()
-        } else if (!this.isAtRoot()) {
-            this.navigateOut()
         }
     }
 
@@ -135,15 +133,10 @@ class Authorization extends Component {
     handleInvalidUserData() {
         this.clearStoredData()
         this.informAboutMalformedUserData()
-        this.navigateOut()
     }
 
     navigateIn() {
         this.props.history.push(Authorization.entryPath)
-    }
-
-    navigateOut() {
-        this.props.history.push(Authorization.rootPath)
     }
 
     storeSessionInfo({token, ...user}) {
