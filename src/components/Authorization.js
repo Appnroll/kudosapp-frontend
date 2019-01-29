@@ -80,7 +80,7 @@ class Authorization extends Component {
     }
 
     startSessionFromAPIInfo() {
-        if (!this.areAPIParamsValid()) {
+        if (!this.areParamsValid()) {
             return this.handleInvalidUserData()
         }
         const token = this.getTokenFromParams()
@@ -112,7 +112,7 @@ class Authorization extends Component {
         return Boolean(name && id)
     }
 
-    areAPIParamsValid() {
+    areParamsValid() {
         return [...this.getParams().values()].reduce((outcome, param) => outcome && Boolean(param), true)
     }
 
