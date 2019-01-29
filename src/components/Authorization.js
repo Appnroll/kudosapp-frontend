@@ -48,7 +48,7 @@ class Authorization extends Component {
 
         if (currentToken) {
             this.startFromStoredData()
-        } else if (paramToken) {
+        } else if (this.isAtLogin() && paramToken) {
             this.startSessionFromAPIInfo()
         } else if (!this.isAtRoot()) {
             this.navigateOut()
@@ -71,7 +71,7 @@ class Authorization extends Component {
             if (this.isUserValid(user)) {
                 this.setSession(currentToken)
                 this.setUser(user)
-                if(this.isAtLogin() || this.isAtRoot()) {
+                if (this.isAtLogin() || this.isAtRoot()) {
                     this.navigateIn()
                 }
             } else {

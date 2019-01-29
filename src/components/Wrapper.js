@@ -7,7 +7,6 @@ import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
 import Givers from "./Givers";
 import LoginScreen from "./LoginScreen";
-import Login from './Login'
 import withAuthorizationRequired from './withAuthorizationRequired'
 
 class Wrapper extends Component {
@@ -18,7 +17,6 @@ class Wrapper extends Component {
                 <Container>
                     <Switch>
                         <Route exact path={'/'} component={LoginScreen}/>
-                        <Route exact path={'/login'} component={Login}/>
                         <Route exact path={'/wall'} component={withAuthorizationRequired(ListOfCards)}/>,
                         <Route exact path={'/stats'} component={withAuthorizationRequired(Stats)}/>,
                         <Route exact path={'/stats/givers/:year/:month'} component={withAuthorizationRequired(Givers)}/>
