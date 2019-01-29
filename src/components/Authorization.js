@@ -67,8 +67,7 @@ class Authorization extends Component {
         try {
             const user = JSON.parse(storedUser)
             if (this.isUserValid(user)) {
-                this.setSession(currentToken)
-                this.setUser(user)
+                this.setCredentials({token: currentToken, ...user})
                 if (this.isAtLogin() || this.isAtRoot()) {
                     this.navigateIn()
                 }
@@ -93,27 +92,18 @@ class Authorization extends Component {
             this.handleInvalidUserData()
         }
 
-        this.setSession(token)
-        this.setUser(user)
+        this.setCredentials({token, ...user})
         this.navigateIn()
     }
 
-    setSession(token) {
+    setCredentials({token, name, id}) {
         this.setState(state => ({
             context: {
                 ...state.context,
                 token,
-                authorized: true
-            }
-        }))
-    }
-
-    setUser(user) {
-        this.setState(state => ({
-            context: {
-                ...state.context,
-                userName: user.name,
-                userId: user.id
+                authorized: true,
+                userName: name,
+                userId: id,
             }
         }))
     }
