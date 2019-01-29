@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Wrapper from "./components/Wrapper";
+import Authorization from './components/Authorization'
 
 class App extends Component {
   render() {
     return (
-      <Wrapper/>
+        <Authorization>
+          <Wrapper/>
+        </Authorization>
     );
   }
 }
