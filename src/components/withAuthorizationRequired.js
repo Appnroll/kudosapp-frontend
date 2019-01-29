@@ -16,5 +16,7 @@ class Authorized extends Component {
 
 const OnlyAuthorized = withAuthorization(Authorized)
 
-export default Component => routerProps =>
-    <OnlyAuthorized {...routerProps}><Component {...routerProps}/></OnlyAuthorized>
+export default function withAuthorizationRequired(Component) {
+    return routerProps =>
+        <OnlyAuthorized {...routerProps}><Component {...routerProps}/></OnlyAuthorized>
+}
