@@ -49,7 +49,7 @@ class Authorization extends Component {
         if (currentToken) {
             this.startFromStoredData()
         } else if (paramToken) {
-            this.setSession(paramToken)
+            this.startSessionFromAPIInfo()
         } else if (!this.isAtRoot()) {
             this.navigateOut()
         }
@@ -165,7 +165,7 @@ class Authorization extends Component {
     }
 
     getParams() {
-        return new URLSearchParams(window.location.search)
+        return new URLSearchParams(this.props.location.search)
     }
 
     getTokenFromParams() {
