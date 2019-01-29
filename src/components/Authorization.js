@@ -6,8 +6,8 @@ const AuthorizationContext = createContext(null)
 
 class Authorization extends Component {
     // Store key names.
-    static tokenStorageName = 'kudosapp.token'
-    static userStorageName = 'kudosapp.user'
+    static tokenStorageName = 'token'
+    static userStorageName = 'user'
 
     // Query params passed from the API during login.
     static authTokenParamName = 'token'
