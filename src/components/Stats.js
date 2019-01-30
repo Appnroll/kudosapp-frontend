@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
-import { getKudosesStats } from "../api/KudosApi";
 import Spinner from "./Spinner";
 import StatsList from "./StatsList";
+import KudosRankingRequest from './KudosRankingRequest'
 
 class Stats extends Component {
     state = {
         ranking: [],
         loading: true
     }
-    componentDidMount () {
-        getKudosesStats()
-            .then(ranking => ranking.sort(this.compare))
-            .then(ranking => {
-                this.setState({
-                    ranking: ranking.map(({totalPoints, user: {name}}) => ({label: name, value: totalPoints})),
-                    loading: false
-                })
-            })
-    }
-    compare(a, b) {
-        return b.totalPoints - a.totalPoints
-    }
+
     render() {
-        const { loading, ranking } = this.state
+        const {loading, ranking} = this.state
         return (
-            loading ? <Spinner/> : <StatsList stats={ranking}/>
+            <>
+                <KudosRankingRequest then={ranking => this.setState({ranking, loading: false})}/>
+                {loading ? <Spinner/> : <StatsList stats={ranking}/>}
+            </>
         );
     }
 }

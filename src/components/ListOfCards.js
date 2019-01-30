@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import Card from "./Card";
-import { getKudoses } from '../api/KudosApi'
 import Spinner from "./Spinner";
+import KudosRequest from './KudosRequest'
 
 class ListOfCards extends Component {
     state = {
-        kudoses: [],
+        kudos: [],
         loading: true
     }
-    componentDidMount () {
-        getKudoses()
-            .then(kudoses => {
-                const sortedKudoses = kudoses.reverse()
-                this.setState({
-                    kudoses: sortedKudoses,
-                    loading: false
-                })
-            })
-    }
+
     render() {
-        const { loading, kudoses } = this.state
+        const {loading, kudos} = this.state
         return (
-            <StyledList>
-                {
-                    loading ? <Spinner/> :
-                    kudoses.map((kudos, index) => <Card kudos={kudos} key={index}/>)
-                }
-            </StyledList>
+            <>
+                <KudosRequest then={kudos => this.setState({kudos, loading: false})}/>
+                <StyledList>
+                    {
+                        loading ? <Spinner/> :
+                            kudos.map((kudos, index) => <Card kudos={kudos} key={index}/>)
+                    }
+                </StyledList>
+            </>
         );
     }
 }
