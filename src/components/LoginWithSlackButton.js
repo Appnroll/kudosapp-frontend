@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const scope = 'identity.basic'
 const clientId = '9591341856.520040322359' // TODO: possibly move to ENV
-const redirectUri = encodeURIComponent('http://localhost:3000/wall') // TODO: Needs to be the API URL
+const redirectUri = encodeURIComponent('https://kudosapp-staging.herokuapp.com/slack/redirect')
 const slackUrl = `https://slack.com/oauth/authorize?scope=${scope}&client_id=${clientId}&redirect_uri=${redirectUri}`
 
 class LoginWithSlackButton extends Component {
