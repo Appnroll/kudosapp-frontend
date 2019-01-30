@@ -52,7 +52,8 @@ export class RequestMaker extends Component {
         }
 
         if (from) {
-            fetch(RequestMaker.endpoint + from, {headers})
+            this.controller = new AbortController()
+            fetch(RequestMaker.endpoint + from, {headers, signal: this.controller.signal})
                 .then(response => {
                     if (response.status < 400) {
                         return response.json()
@@ -62,6 +63,12 @@ export class RequestMaker extends Component {
                 })
                 .then(handleResponse)
                 .catch(handleError)
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.controller) {
+            this.controller.abort()
         }
     }
 
