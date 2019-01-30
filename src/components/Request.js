@@ -48,19 +48,19 @@ export class RequestMaker extends Component {
         }
 
         const headers = {
-            ...authorized && {Authorization:  `Bearer ${authorization.token}`}
+            ...authorized && {Authorization: `Bearer ${authorization.token}`}
         }
 
         if (from) {
             fetch(RequestMaker.endpoint + from, {headers})
-                .then(response => response.json())
                 .then(response => {
                     if (response.status < 400) {
-                        handleResponse(response)
+                        return response.json()
                     } else {
                         throw response
                     }
                 })
+                .then(handleResponse)
                 .catch(handleError)
         }
     }
