@@ -9,5 +9,4 @@ export default function withNetworking(Component) {
             }
         </Networking.Consumer>
     )
-
 }
