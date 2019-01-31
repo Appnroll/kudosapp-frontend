@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import Request, {RequestMaker} from './Request'
+import Request, { RequestMaker } from './Request'
 import { getMonthIndexByAbbreviation } from '../utils/months'
 
 export default class KudosStatsRequest extends Component {
     static propTypes = RequestMaker.handlersPropTypes
     static defaultProps = RequestMaker.defaultProps
 
-    handleResponse = stats => {
-        const normalizedStats = stats.reduce((acc, {year, month, from, quantity}) => {
+    normalize = stats =>
+        stats.reduce((acc, {year, month, from, quantity}) => {
             // TODO: when API changes returned data, this will have to change.
             const monthIndex = getMonthIndexByAbbreviation(month)
             if (!acc[year]) {
@@ -19,20 +19,14 @@ export default class KudosStatsRequest extends Component {
             acc[year][monthIndex].push({from, quantity: Number(quantity)})
             return acc
         }, {})
-        this.props.then(normalizedStats)
-    }
-
-    handleError = error => {
-        this.props.catch(error)
-    }
 
     render() {
         return (
             <Request
                 authorized
                 from='kudos/from'
-                then={this.handleResponse}
-                catch={this.handleError}
+                then={response => this.props.then(this.normalize(response))}
+                catch={this.props.catch}
             />
         )
     }

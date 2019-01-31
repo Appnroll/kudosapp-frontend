@@ -5,17 +5,10 @@ export default class KudosRankingRequest extends Component {
     static propTypes = RequestMaker.handlersPropTypes
     static defaultProps = RequestMaker.defaultProps
 
-    handleResponse = ranking => {
-        const normalizedRanking =
-            ranking
-                .sort(this.compare)
-                .map(({totalPoints, user: {name}}) => ({label: name, value: totalPoints}))
-        this.props.then(normalizedRanking)
-    }
-
-    handleError = error => {
-        this.props.catch(error)
-    }
+    normalize = ranking =>
+        ranking
+            .sort(this.compare)
+            .map(({totalPoints, user: {name}}) => ({label: name, value: totalPoints}))
 
     compare(a, b) {
         return b.totalPoints - a.totalPoints
@@ -26,8 +19,8 @@ export default class KudosRankingRequest extends Component {
             <Request
                 authorized
                 from='kudos/rankings'
-                then={this.handleResponse}
-                catch={this.handleError}
+                then={response => this.props.then(this.normalize(response))}
+                catch={this.props.catch}
             />
         )
     }
