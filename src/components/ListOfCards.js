@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import Card from "./Card";
-import Spinner from "./Spinner";
 import KudosRequest from './KudosRequest'
+import NetworkSpinner from './NetworkSpinner'
 
 class ListOfCards extends Component {
     state = {
         kudos: [],
-        loading: true
     }
 
     render() {
-        const {loading, kudos} = this.state
+        const {kudos} = this.state
         return (
             <>
-                <KudosRequest then={kudos => this.setState({kudos, loading: false})}/>
+                <KudosRequest then={kudos => this.setState({kudos})}/>
+                <NetworkSpinner/>
                 <StyledList>
                     {
-                        loading ? <Spinner/> :
-                            kudos.map((kudos, index) => <Card kudos={kudos} key={index}/>)
+                        kudos.map((kudos, index) => <Card kudos={kudos} key={index}/>)
                     }
                 </StyledList>
             </>
@@ -26,9 +25,8 @@ class ListOfCards extends Component {
     }
 }
 
-
 const StyledList = styled.ul`
    max-width: 500px;
    margin: 0 auto 20px;
 `
-export default ListOfCards;
+export default ListOfCards

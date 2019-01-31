@@ -4,13 +4,12 @@ import { isCurrentMonth, isFutureMonth } from "../utils/months";
 import GiversStats from "./GiversStats";
 import styled from "styled-components";
 import { isCurrentYear } from "../utils/years";
-import Spinner from "./Spinner";
 import KudosStatsRequest from './KudosStatsRequest'
+import NetworkSpinner from './NetworkSpinner'
 
 class Givers extends Component {
     state = {
         stats: {},
-        loading: true
     }
 
     renderNoStats(month, year) {
@@ -53,11 +52,10 @@ class Givers extends Component {
         return (
             <>
                 <KudosStatsRequest then={stats => this.setState({stats, loading: false})}/>
+                <NetworkSpinner/>
                 <div>
                     <DateNavigation currentYear={year} currentMonth={month}/>
-                    {
-                        this.state.loading ? <Spinner/> : this.renderStatsSection()
-                    }
+                    {this.renderStatsSection()}
                 </div>
             </>
         )
