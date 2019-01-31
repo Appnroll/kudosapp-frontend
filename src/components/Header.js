@@ -36,7 +36,7 @@ class Header extends Component {
                                 </li>
                                 <li>
                                     <NavLink to={`/stats/givers/${year}/${month}`} activeStyle={{color: Colors.Banana}}>
-                                        TEMP: Givers
+                                        Givers
                                     </NavLink>
                                 </li>
                                 <li>
