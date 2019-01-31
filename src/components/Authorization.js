@@ -107,7 +107,7 @@ class Authorization extends Component {
 
     endSession() {
         this.clearStoredData()
-        this.setCredentials({token: null, name: null, id: null})
+        this.unsetCredentials()
         this.navigateToRoot()
     }
 
@@ -121,6 +121,10 @@ class Authorization extends Component {
                 userId: id,
             }
         }))
+    }
+
+    unsetCredentials() {
+        this.setCredentials({token: null, name: null, id: null})
     }
 
     isUserValid({name, id} = {}) {
