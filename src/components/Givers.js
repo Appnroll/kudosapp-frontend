@@ -1,38 +1,18 @@
 import React, { Component } from 'react';
-import { getKudosesGiversStats } from "../api/KudosApi";
 import DateNavigation from "./DateNavigation";
-import { getMonthIndexByAbbreviation, isCurrentMonth, isFutureMonth } from "../utils/months";
+import { isCurrentMonth, isFutureMonth } from "../utils/months";
 import GiversStats from "./GiversStats";
 import styled from "styled-components";
-import {isCurrentYear} from "../utils/years";
-import Spinner from "./Spinner";
+import { isCurrentYear } from "../utils/years";
+import KudosStatsRequest from './KudosStatsRequest'
+import NetworkSpinner from './NetworkSpinner'
 
 class Givers extends Component {
     state = {
         stats: {},
-        loading: true
     }
-    componentDidMount () {
-        getKudosesGiversStats()
-            .then(stats => this.storeStats(stats))
-            .then(() => this.setState({loading: false}))
-    }
-    storeStats (stats) {
-        const parsed = stats.reduce((acc, {year, month, from, quantity}) => {
-            // TODO: when API changes returned data, this will have to change.
-            const monthIndex = getMonthIndexByAbbreviation(month)
-            if (!acc[year]) {
-                acc[year] = {}
-            }
-            if (!acc[year][monthIndex]) {
-                acc[year][monthIndex] = []
-            }
-            acc[year][monthIndex].push({from, quantity: Number(quantity)})
-            return acc
-        }, {})
-        this.setState({stats: parsed})
-    }
-    renderNoStats (month, year) {
+
+    renderNoStats(month, year) {
         if (isCurrentMonth(month) && isCurrentYear(year)) {
             return (
                 <NoItemText>
@@ -56,7 +36,8 @@ class Givers extends Component {
             )
         }
     }
-    renderStatsSection () {
+
+    renderStatsSection() {
         const {year, month} = this.props.match.params
         const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
         if (currentStats) {
@@ -65,15 +46,18 @@ class Givers extends Component {
             return this.renderNoStats(month - 1, +year)
         }
     }
-    render () {
+
+    render() {
         const {year, month} = this.props.match.params
         return (
-            <div>
-                <DateNavigation currentYear={year} currentMonth={month}/>
-                {
-                    this.state.loading ? <Spinner/> : this.renderStatsSection()
-                }
-            </div>
+            <>
+                <KudosStatsRequest then={stats => this.setState({stats, loading: false})}/>
+                <NetworkSpinner/>
+                <div>
+                    <DateNavigation currentYear={year} currentMonth={month}/>
+                    {this.renderStatsSection()}
+                </div>
+            </>
         )
     }
 }

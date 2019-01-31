@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Colors from "../constants/Colors";
 import { NavLink, withRouter } from "react-router-dom";
 import Logo from './Logo'
+import withAuthorization from './withAuthorization'
 
 export const headerHeight = 70
 
@@ -20,21 +21,31 @@ class Header extends Component {
                         </NavLink>
                     </Title>
                     <Menu>
-                        <li>
-                            <NavLink to={"/wall"} activeStyle={{ color: Colors.Banana }}>
-                                Wall
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={"/stats"} activeStyle={{ color: Colors.Banana }} exact>
-                                Statistics
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={`/stats/givers/${year}/${month}`} activeStyle={{ color: Colors.Banana }}>
-                                TEMP: Givers
-                            </NavLink>
-                        </li>
+                        {
+                            this.props.authorization.authorized &&
+                            <>
+                                <li>
+                                    <NavLink to={"/wall"} activeStyle={{color: Colors.Banana}}>
+                                        Wall
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={"/stats"} activeStyle={{color: Colors.Banana}} exact>
+                                        Statistics
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={`/stats/givers/${year}/${month}`} activeStyle={{color: Colors.Banana}}>
+                                        Givers
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={`/logout`}>
+                                        Logout
+                                    </NavLink>
+                                </li>
+                            </>
+                        }
                     </Menu>
                 </div>
             </StyledHeader>
@@ -78,4 +89,4 @@ const Title = styled.h1`
     color: ${Colors.Banana}
   }
 `
-export default withRouter(Header);
+export default withAuthorization(withRouter(Header))

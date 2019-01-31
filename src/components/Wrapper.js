@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Header, { headerHeight } from './Header'
 import Colors from '../constants/Colors'
-import { Switch, Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import ListOfCards from "./ListOfCards";
 import Stats from "./Stats";
-import Instructions from "./Instructions"
 import Givers from "./Givers";
+import LoginScreen from "./LoginScreen";
+import withAuthorizationRequired from './withAuthorizationRequired'
 
 class Wrapper extends Component {
     render() {
@@ -15,10 +16,10 @@ class Wrapper extends Component {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path={'/'} component={Instructions}/>
-                        <Route exact path={'/wall'} component={ListOfCards}/>
-                        <Route exact path={'/stats'} component={Stats}/>
-                        <Route exact path={'/stats/givers/:year/:month'} component={Givers}/>
+                        <Route exact path={'/'} component={LoginScreen}/>
+                        <Route exact path={'/wall'} component={withAuthorizationRequired(ListOfCards)}/>,
+                        <Route exact path={'/stats'} component={withAuthorizationRequired(Stats)}/>,
+                        <Route exact path={'/stats/givers/:year/:month'} component={withAuthorizationRequired(Givers)}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>
