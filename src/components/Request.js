@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types'
 import withAuthorization from './withAuthorization'
+import withNetworking from './withNetworking'
 
 export class RequestMaker extends Component {
     static handlersPropTypes = {
@@ -37,7 +38,7 @@ export class RequestMaker extends Component {
     }
 
     componentDidMount() {
-        const {authorized, authorization, from, then: handleResponse, catch: handleError} = this.props
+        const {authorized, authorization, networking, from, then: handleResponse, catch: handleError} = this.props
 
         if (authorized && !authorization.authorized) {
             handleError({
@@ -53,6 +54,7 @@ export class RequestMaker extends Component {
 
         if (from) {
             this.controller = new AbortController()
+            networking.initiate()
             fetch(RequestMaker.endpoint + from, {headers, signal: this.controller.signal})
                 .then(response => {
                     if (response.status < 400) {
@@ -63,6 +65,7 @@ export class RequestMaker extends Component {
                 })
                 .then(handleResponse)
                 .catch(handleError)
+                .finally(networking.end)
         }
     }
 
@@ -77,4 +80,4 @@ export class RequestMaker extends Component {
     }
 }
 
-export default withAuthorization(RequestMaker)
+export default withNetworking(withAuthorization(RequestMaker))
