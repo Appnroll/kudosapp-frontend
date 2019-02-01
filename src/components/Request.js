@@ -19,6 +19,9 @@ export class RequestMaker extends Component {
         // Inform about the required authorization.
         authorized: PropTypes.bool,
 
+        // Query params that will be added
+        query: PropTypes.object,
+
         // Result handlers.
         ...Request.handlersPropTypes
     }
@@ -37,7 +40,25 @@ export class RequestMaker extends Component {
         done: false,
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props.query !== nextProps.query) {
+            this.fetch({query: nextProps.query})
+        }
+    }
+
     componentDidMount() {
+        this.fetch({query: this.props.query})
+    }
+
+    componentWillUnmount() {
+        this.cancel()
+    }
+
+    render() {
+        return null
+    }
+
+    fetch({query}) {
         const {authorized, authorization, networking, from, then: handleResponse, catch: handleError} = this.props
 
         if (authorized && !authorization.authorized) {
@@ -55,7 +76,7 @@ export class RequestMaker extends Component {
         if (from) {
             this.controller = new AbortController()
             networking.initiate()
-            fetch(RequestMaker.endpoint + from, {headers, signal: this.controller.signal})
+            fetch(this.createUrl({path: from, query}), {headers, signal: this.controller.signal})
                 .then(response => {
                     if (response.status < 400) {
                         return response.json()
@@ -69,14 +90,16 @@ export class RequestMaker extends Component {
         }
     }
 
-    componentWillUnmount() {
+    cancel() {
         if (this.controller) {
             this.controller.abort()
         }
     }
 
-    render() {
-        return null
+    createUrl({path, query}) {
+        const url = new URL(RequestMaker.endpoint + path)
+        url.search = new URLSearchParams(query)
+        return url
     }
 }
 
