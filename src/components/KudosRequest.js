@@ -1,9 +1,31 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Request, { RequestMaker } from './Request'
 
 export default class KudosRequest extends Component {
-    static propTypes = RequestMaker.handlersPropTypes
-    static defaultProps = RequestMaker.defaultProps
+    static propTypes = {
+        ...RequestMaker.handlersPropTypes,
+        page: PropTypes.number
+    }
+
+    static defaultProps = {
+        ...RequestMaker.defaultProps,
+        page: 0
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.page !== state.page) {
+            return {
+                page: props.page
+            }
+        } else {
+            return null
+        }
+    }
+
+    state = {
+        page: 0,
+    }
 
     normalize = kudos =>
         kudos.reverse()
@@ -13,7 +35,8 @@ export default class KudosRequest extends Component {
             <Request
                 authorized
                 from='kudos'
-                then={response => this.props.then(this.normalize(response))}
+                query={this.state}
+                then={response => this.props.then(this.normalize(response.data))}
                 catch={this.props.catch}
             />
         )
