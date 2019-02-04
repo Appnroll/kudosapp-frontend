@@ -29,7 +29,7 @@ export default class KudosRequest extends Component {
 
     normalize = response => ({
         ...response,
-        kudos: response.data.reverse()
+        kudos: response.data.reverse().map(kudo => ({...kudo, createdAt: new Date().toISOString()}))
     })
 
     render() {

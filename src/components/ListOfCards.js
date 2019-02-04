@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import Card from "./Card";
+import KudoCard from "./KudoCard";
 import KudosRequest from './KudosRequest'
 import NetworkSpinner from './NetworkSpinner'
 import LoadMoreButton from './LoadMoreButton'
@@ -32,7 +32,13 @@ class ListOfCards extends Component {
                 <KudosRequest page={this.state.page} then={this.addKudos}/>
                 <StyledList>
                     {
-                        kudos.map((kudos, index) => <Card kudos={kudos} key={index}/>)
+                        kudos.map((kudo, index, list) => (
+                            <KudoCard
+                                key={index}
+                                {...kudo}
+                                displayDate={index === 0 || kudo.createdAt !== list[index - 1].createdAt}
+                            />
+                        ))
                     }
                 </StyledList>
                 <Controls>
