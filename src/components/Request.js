@@ -22,6 +22,9 @@ export class RequestMaker extends Component {
         // Query params that will be added
         query: PropTypes.object,
 
+        // Params that will be used to construct URL.
+        params: PropTypes.object,
+
         // Result handlers.
         ...Request.handlersPropTypes
     }
@@ -42,12 +45,12 @@ export class RequestMaker extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.query !== nextProps.query) {
-            this.fetch({query: nextProps.query})
+            this.fetch({query: nextProps.query, params: nextProps.params})
         }
     }
 
     componentDidMount() {
-        this.fetch({query: this.props.query})
+        this.fetch({query: this.props.query, params: this.props.params})
     }
 
     componentWillUnmount() {
@@ -58,7 +61,7 @@ export class RequestMaker extends Component {
         return null
     }
 
-    fetch({query}) {
+    fetch({query, params}) {
         const {authorized, authorization, networking, from, then: handleResponse, catch: handleError} = this.props
 
         if (authorized && !authorization.authorized) {
@@ -76,7 +79,7 @@ export class RequestMaker extends Component {
         if (from) {
             this.controller = new AbortController()
             networking.initiate()
-            fetch(this.createUrl({path: from, query}), {headers, signal: this.controller.signal})
+            fetch(this.createUrl({path: from, query, params}), {headers, signal: this.controller.signal})
                 .then(response => {
                     if (response.status < 400) {
                         return response.json()
@@ -96,8 +99,13 @@ export class RequestMaker extends Component {
         }
     }
 
-    createUrl({path, query}) {
-        const url = new URL(RequestMaker.endpoint + path)
+    createUrl({path, query, params}) {
+        const address =
+            Object.entries(params || {})
+                .reduce((fullUrl, [param, value]) =>
+                    fullUrl.replace(`:${param}`, value), RequestMaker.endpoint + path
+                )
+        const url = new URL(address)
         url.search = new URLSearchParams(query)
         return url
     }

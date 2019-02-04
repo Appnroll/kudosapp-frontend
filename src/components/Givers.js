@@ -6,10 +6,11 @@ import styled from "styled-components";
 import { isCurrentYear } from "../utils/years";
 import KudosStatsRequest from './KudosStatsRequest'
 import NetworkSpinner from './NetworkSpinner'
+import withNetworking from './withNetworking'
 
 class Givers extends Component {
     state = {
-        stats: {},
+        stats: [],
     }
 
     renderNoStats(month, year) {
@@ -39,8 +40,8 @@ class Givers extends Component {
 
     renderStatsSection() {
         const {year, month} = this.props.match.params
-        const currentStats = this.state.stats[year] && this.state.stats[year][month - 1]
-        if (currentStats) {
+        const currentStats = this.state.stats
+        if (currentStats.length) {
             return <GiversStats stats={currentStats}/>
         } else {
             return this.renderNoStats(month - 1, +year)
@@ -50,17 +51,23 @@ class Givers extends Component {
     render() {
         const {year, month} = this.props.match.params
         return (
-            <>
-                <KudosStatsRequest then={stats => this.setState({stats, loading: false})}/>
+            <Container>
+                <KudosStatsRequest year={year} month={month} then={stats => this.setState({stats, loading: false})}/>
+                <DateNavigation currentYear={year} currentMonth={month}/>
                 <NetworkSpinner/>
-                <div>
-                    <DateNavigation currentYear={year} currentMonth={month}/>
-                    {this.renderStatsSection()}
-                </div>
-            </>
+                {!this.props.networking.fetching && this.renderStatsSection()}
+            </Container>
         )
     }
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1150px;
+  margin: 0 auto;
+`
 
 const NoItemText = styled.p`
   margin: 5rem auto 0;
@@ -75,4 +82,4 @@ const NoItemText = styled.p`
   color: cornflowerblue;
 `
 
-export default Givers
+export default withNetworking(Givers)
