@@ -5,22 +5,28 @@ import KudosRequest from './KudosRequest'
 import NetworkSpinner from './NetworkSpinner'
 import LoadMoreButton from './LoadMoreButton'
 
+const MORE_AVAILABLE = 'more_available'
+const MORE_UNAVAILABLE = 'more_unavailable'
+const MORE_UNKNOWN = 'unknown'
+
 class ListOfCards extends Component {
     state = {
         kudos: [],
-        page: 0
+        page: 0,
+        moreAvailable: MORE_UNKNOWN
     }
 
-    addKudos = newKudos =>
+    addKudos = ({kudos: newKudos, hasNext}) =>
         this.setState(state => ({
-            kudos: [...state.kudos, ...newKudos]
+            kudos: [...state.kudos, ...newKudos],
+            moreAvailable: hasNext ? MORE_AVAILABLE : MORE_UNAVAILABLE
         }))
 
     setNextPage = () =>
         this.setState(state => ({page: state.page + 1}))
 
     render() {
-        const {kudos} = this.state
+        const {kudos, moreAvailable} = this.state
         return (
             <>
                 <KudosRequest page={this.state.page} then={this.addKudos}/>
@@ -31,7 +37,13 @@ class ListOfCards extends Component {
                 </StyledList>
                 <Controls>
                     <NetworkSpinner/>
-                    <LoadMoreButton onClick={this.setNextPage}>Load more</LoadMoreButton>
+                    {
+                        moreAvailable !== MORE_UNAVAILABLE &&
+                        <LoadMoreButton onClick={this.setNextPage}>Load more</LoadMoreButton>
+                    }
+                    {
+                        moreAvailable === MORE_UNAVAILABLE && <p>No more Kudos available.</p>
+                    }
                 </Controls>
             </>
         );
