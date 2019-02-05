@@ -17,9 +17,9 @@ class Wrapper extends Component {
                 <Container>
                     <Switch>
                         <Route exact path={'/'} component={LoginScreen}/>
-                        <Route exact path={'/wall'} component={withAuthorizationRequired(ListOfCards)}/>,
-                        <Route exact path={'/stats'} component={withAuthorizationRequired(Stats)}/>,
-                        <Route exact path={'/stats/givers/:year/:month'} component={withAuthorizationRequired(Givers)}/>
+                        <Route exact path={'/wall'} component={withAuthorizationRequired(ListOfCards)}/>
+                        <Route exact path={'/stats'} component={withAuthorizationRequired(Stats)}/>
+                        <Route path={'/stats/givers/:year?/:month?'} component={withAuthorizationRequired(Givers)}/>
                     </Switch>
                 </Container>
             </LayoutWrapper>

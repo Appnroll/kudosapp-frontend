@@ -27,8 +27,13 @@ export default class KudosRequest extends Component {
         page: 0,
     }
 
-    normalize = kudos =>
-        kudos.reverse()
+    normalize = response => ({
+        ...response,
+        kudos: response.data.sort((a, b) => {
+            if (a.createdAt < b.createdAt) return 1
+            else return -1
+        })
+    })
 
     render() {
         return (
@@ -36,7 +41,7 @@ export default class KudosRequest extends Component {
                 authorized
                 from='kudos'
                 query={this.state}
-                then={response => this.props.then(this.normalize(response.data))}
+                then={response => this.props.then(this.normalize(response))}
                 catch={this.props.catch}
             />
         )
