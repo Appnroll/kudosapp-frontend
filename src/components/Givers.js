@@ -48,8 +48,21 @@ class Givers extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.props.match.params.year) {
+            const year = (new Date()).getFullYear()
+            const month = (new Date()).getMonth() + 1
+            this.props.history.push('/stats/givers/' + year + '/' + month)
+        }
+    }
+
     render() {
         const {year, month} = this.props.match.params
+
+        if (!year || !month) {
+            return null;
+        }
+
         return (
             <Container>
                 <KudosStatsRequest year={year} month={month} then={stats => this.setState({stats, loading: false})}/>
