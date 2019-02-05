@@ -29,7 +29,10 @@ export default class KudosRequest extends Component {
 
     normalize = response => ({
         ...response,
-        kudos: response.data.reverse().map(kudo => ({...kudo, createdAt: new Date().toISOString()}))
+        kudos: response.data.sort((a, b) => {
+            if (a.createdAt < b.createdAt) return 1
+            else return -1
+        })
     })
 
     render() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Colors from '../constants/Colors'
 
 export default class KudosDateHeading extends Component {
     static propTypes = {
@@ -9,7 +10,7 @@ export default class KudosDateHeading extends Component {
 
     displayDate() {
         const date = new Date(this.props.date)
-        return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDay()}`
+        return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`
     }
 
     render() {
@@ -22,9 +23,13 @@ export default class KudosDateHeading extends Component {
 }
 
 const Container = styled.div`
-  position: absolute;
-  right: calc(100% + 10px);
-  top: -1rem;
-  border-bottom: 1px solid black;
-  width: 100px;
+  color: ${Colors.WarmGray}
+  border-bottom: 1px solid;
+  
+  @media (min-width: 750px) {
+      position: absolute;
+      right: calc(100% + 10px);
+      top: -1rem;
+      width: 100px;
+  }
 `

@@ -25,22 +25,26 @@ class ListOfCards extends Component {
     setNextPage = () =>
         this.setState(state => ({page: state.page + 1}))
 
+    shouldDisplayDate(kudo, index, list) {
+        return index === 0 || kudo.createdAt.substring(0, 10) !== list[index - 1].createdAt.substring(0, 10)
+    }
+
     render() {
         const {kudos, moreAvailable} = this.state
         return (
             <>
                 <KudosRequest page={this.state.page} then={this.addKudos}/>
-                <StyledList>
+                <KudosList>
                     {
                         kudos.map((kudo, index, list) => (
                             <KudoCard
                                 key={index}
                                 {...kudo}
-                                displayDate={index === 0 || kudo.createdAt !== list[index - 1].createdAt}
+                                displayDate={this.shouldDisplayDate(kudo, index, list)}
                             />
                         ))
                     }
-                </StyledList>
+                </KudosList>
                 <Controls>
                     <NetworkSpinner/>
                     {
@@ -56,7 +60,7 @@ class ListOfCards extends Component {
     }
 }
 
-const StyledList = styled.ul`
+const KudosList = styled.ul`
    max-width: 500px;
    margin: 0 auto 20px;
 `

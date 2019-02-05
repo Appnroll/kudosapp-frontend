@@ -44,7 +44,7 @@ class KudoCard extends Component {
 
 const Container = styled.div`
   position: relative;
-  margin-top: ${props => props.spaced ? '2rem' : 0};
+  margin-top: ${props => props.spaced ? '3rem' : 0};
 `
 
 const KudosCreator = styled.h6`
