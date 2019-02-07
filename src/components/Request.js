@@ -39,8 +39,9 @@ export class RequestMaker extends Component {
     }
 
     state = {
-        inProgress: false,
-        done: false,
+        loading: false,
+        error: undefined,
+        response: undefined,
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -58,18 +59,20 @@ export class RequestMaker extends Component {
     }
 
     render() {
-        return null
+        return this.props.children(this.state)
     }
 
     fetch({query, params}) {
-        const {authorized, authorization, networking, from, then: handleResponse, catch: handleError} = this.props
+        const {authorized, authorization, networking, from} = this.props
 
         if (authorized && !authorization.authorized) {
-            handleError({
+            const error = {
                 statusCode: 403,
                 error: 'Forbidden',
                 message: 'Trying to make an authorized request without credentials.'
-            })
+            }
+            this.setState({error, loading: false})
+            return
         }
 
         const headers = {
@@ -77,6 +80,7 @@ export class RequestMaker extends Component {
         }
 
         if (from) {
+            this.setState({loading: true})
             this.controller = new AbortController()
             networking.initiate()
             fetch(this.createUrl({path: from, query, params}), {headers, signal: this.controller.signal})
@@ -87,8 +91,8 @@ export class RequestMaker extends Component {
                         throw response
                     }
                 })
-                .then(handleResponse)
-                .catch(handleError)
+                .then(response => this.setState({loading: false, response}))
+                .catch(error => this.setState({loading: false, error}))
                 .finally(networking.end)
         }
     }

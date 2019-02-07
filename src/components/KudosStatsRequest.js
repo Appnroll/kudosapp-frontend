@@ -17,9 +17,12 @@ export default class KudosStatsRequest extends Component {
                 authorized
                 params={{year: this.props.year, month: this.props.month}}
                 from='kudos/from/:year/:month'
-                then={this.props.then}
-                catch={this.props.catch}
-            />
+            >
+                {
+                    ({response, ...rest}) =>
+                        this.props.children({...rest, response})
+                }
+            </Request>
         )
     }
 }

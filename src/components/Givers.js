@@ -38,11 +38,10 @@ class Givers extends Component {
         }
     }
 
-    renderStatsSection() {
+    renderStatsSection(stats = []) {
         const {year, month} = this.props.match.params
-        const currentStats = this.state.stats
-        if (currentStats.length) {
-            return <GiversStats stats={currentStats}/>
+        if (stats.length) {
+            return <GiversStats stats={stats}/>
         } else {
             return this.renderNoStats(month - 1, +year)
         }
@@ -65,10 +64,17 @@ class Givers extends Component {
 
         return (
             <Container>
-                <KudosStatsRequest year={year} month={month} then={stats => this.setState({stats, loading: false})}/>
-                <DateNavigation currentYear={year} currentMonth={month}/>
-                <NetworkSpinner/>
-                {!this.props.networking.fetching && this.renderStatsSection()}
+                <KudosStatsRequest year={year} month={month} then={stats => this.setState({stats, loading: false})}>
+                    {
+                        ({loading, response}) => (
+                            <>
+                                <DateNavigation currentYear={year} currentMonth={month}/>
+                                <NetworkSpinner/>
+                                {!loading && this.renderStatsSection(response)}
+                            </>
+                        )
+                    }
+                </KudosStatsRequest>
             </Container>
         )
     }
