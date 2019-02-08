@@ -40,8 +40,7 @@ export class RequestMaker extends Component {
 
     state = {
         loading: false,
-        error: undefined,
-        response: undefined,
+        error: null,
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
