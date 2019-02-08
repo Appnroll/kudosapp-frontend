@@ -8,21 +8,39 @@ import Stats from "./Stats";
 import Givers from "./Givers";
 import LoginScreen from "./LoginScreen";
 import withAuthorizationRequired from './withAuthorizationRequired'
+import NetworkErrorBoundary from './NetworkErrorBoundary'
+import AuthorizationErrorBoundary from './AuthorizationErrorBoundary'
+import GenericErrorBoundary from './GenericErrorBoundary'
+import Networking from './Networking'
+import Authorization from './Authorization'
 
 class Wrapper extends Component {
     render() {
         return (
-            <LayoutWrapper>
-                <Header/>
-                <Container>
-                    <Switch>
-                        <Route exact path={'/'} component={LoginScreen}/>
-                        <Route exact path={'/wall'} component={withAuthorizationRequired(ListOfCards)}/>
-                        <Route exact path={'/stats'} component={withAuthorizationRequired(Stats)}/>
-                        <Route path={'/stats/givers/:year?/:month?'} component={withAuthorizationRequired(Givers)}/>
-                    </Switch>
-                </Container>
-            </LayoutWrapper>
+            <GenericErrorBoundary>
+                <Authorization>
+                    <Networking>
+                        <LayoutWrapper>
+                            <Header/>
+                            <Container>
+                                <NetworkErrorBoundary>
+                                    <AuthorizationErrorBoundary>
+                                        <Switch>
+                                            <Route exact path={'/'} component={LoginScreen}/>
+                                            <Route exact path={'/wall'}
+                                                   component={withAuthorizationRequired(ListOfCards)}/>
+                                            <Route exact path={'/stats'}
+                                                   component={withAuthorizationRequired(Stats)}/>
+                                            <Route path={'/stats/givers/:year?/:month?'}
+                                                   component={withAuthorizationRequired(Givers)}/>
+                                        </Switch>
+                                    </AuthorizationErrorBoundary>
+                                </NetworkErrorBoundary>
+                            </Container>
+                        </LayoutWrapper>
+                    </Networking>
+                </Authorization>
+            </GenericErrorBoundary>
         );
     }
 }
