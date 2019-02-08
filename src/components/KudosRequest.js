@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Request, { RequestMaker } from './Request'
+import Request from './Request'
 
 export default class KudosRequest extends Component {
     static propTypes = {
-        ...RequestMaker.handlersPropTypes,
         page: PropTypes.number
     }
-
-    static defaultProps = RequestMaker.defaultProps
 
     state = {
         page: 0,

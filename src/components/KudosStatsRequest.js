@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Request, { RequestMaker } from './Request'
+import Request from './Request'
 
 export default class KudosStatsRequest extends Component {
     static propTypes = {
-        ...RequestMaker.handlersPropTypes,
         year: PropTypes.string.isRequired,
         month: PropTypes.string.isRequired
     }
-
-    static defaultProps = RequestMaker.defaultProps
 
     render() {
         return (

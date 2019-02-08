@@ -3,15 +3,7 @@ import PropTypes from 'prop-types'
 import withAuthorization from './withAuthorization'
 import withNetworking from './withNetworking'
 
-export class RequestMaker extends Component {
-    static handlersPropTypes = {
-        // Successful response handler.
-        then: PropTypes.func,
-
-        // Error handler.
-        catch: PropTypes.func,
-    }
-
+class RequestMaker extends Component {
     static propTypes = {
         // Endpoint's path.
         from: PropTypes.string.isRequired,
@@ -24,14 +16,6 @@ export class RequestMaker extends Component {
 
         // Params that will be used to construct URL.
         params: PropTypes.object,
-
-        // Result handlers.
-        ...Request.handlersPropTypes
-    }
-
-    static defaultProps = {
-        then: () => undefined,
-        catch: () => undefined
     }
 
     static get endpoint() {
