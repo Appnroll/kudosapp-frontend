@@ -59,6 +59,9 @@ export class RequestMaker extends Component {
     }
 
     render() {
+        if (this.state.error) {
+            throw this.state.error
+        }
         return this.props.children(this.state)
     }
 
@@ -67,7 +70,7 @@ export class RequestMaker extends Component {
 
         if (authorized && !authorization.authorized) {
             const error = {
-                statusCode: 403,
+                status: 403,
                 error: 'Forbidden',
                 message: 'Trying to make an authorized request without credentials.'
             }
