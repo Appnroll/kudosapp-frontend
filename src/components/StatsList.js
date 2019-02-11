@@ -24,7 +24,7 @@ class StatsList extends Component {
                         <li key={index}>
                             <Points>{value}</Points>
                             <Bar best={value === this.state.top} height={this.calculateBar(value)}/>
-                            <Label>{label}</Label>
+                            <LabelContainer><Label title={label}>{label}</Label></LabelContainer>
                         </li>
                     )
                 }
@@ -56,9 +56,19 @@ const Points = styled.div`
   width: 100%;
   text-align: center;
 `
+
+const LabelContainer = styled.div`
+  width: 90%;
+  text-align: center;
+`
+
 const Label = styled.div`
   width: 100%;
   text-align: center;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 auto;
 `
 
 export default StatsList
