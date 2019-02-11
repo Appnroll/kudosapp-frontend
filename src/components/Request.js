@@ -45,7 +45,7 @@ class RequestMaker extends Component {
         if (this.state.error) {
             throw this.state.error
         }
-        return this.props.children(this.state)
+        return this.props.children ? this.props.children(this.state) : null
     }
 
     fetch({query, params}) {
