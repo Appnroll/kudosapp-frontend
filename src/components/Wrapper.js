@@ -12,6 +12,7 @@ import NetworkErrorBoundary from './NetworkErrorBoundary'
 import AuthorizationErrorBoundary from './AuthorizationErrorBoundary'
 import GenericErrorBoundary from './GenericErrorBoundary'
 import Providers from './Providers'
+import Logout from './Logout'
 
 class Wrapper extends Component {
     render() {
@@ -25,6 +26,7 @@ class Wrapper extends Component {
                                 <AuthorizationErrorBoundary>
                                     <Switch>
                                         <Route exact path={'/'} component={LoginScreen}/>
+                                        <Route exact path="/logout" component={Logout}/>
                                         <Route exact path={'/wall'}
                                                component={withAuthorizationRequired(ListOfCards)}/>
                                         <Route exact path={'/stats'}
