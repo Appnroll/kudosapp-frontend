@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://appnroll.github.io/kudosapp-frontend/",
   "dependencies": {
-    "gh-pages": "^2.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
@@ -16,8 +15,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy:clean": "rimraf build",
+    "deploy:build": "npm run build",
+    "deploy:ship": "gh-pages -d build",
+    "deploy": "npm run deploy:clean && npm run deploy:build && npm run deploy:ship"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +28,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "rimraf": "^2.6.3",
+    "gh-pages": "^2.0.1"
+  }
 }
