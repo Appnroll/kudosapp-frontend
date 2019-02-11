@@ -4,18 +4,18 @@ import KudosRankingRequest from './KudosRankingRequest'
 import NetworkSpinner from './NetworkSpinner'
 
 class Stats extends Component {
-    state = {
-        ranking: [],
-    }
-
     render() {
-        const {ranking} = this.state
         return (
-            <>
-                <KudosRankingRequest then={ranking => this.setState({ranking, loading: false})}/>
-                <NetworkSpinner/>
-                <StatsList stats={ranking}/>
-            </>
+            <KudosRankingRequest>
+                {
+                    ({response}) => (
+                        <>
+                            <NetworkSpinner/>
+                            <StatsList stats={response}/>
+                        </>
+                    )
+                }
+            </KudosRankingRequest>
         );
     }
 }

@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import Request, { RequestMaker } from './Request'
+import Request from './Request'
 
 export default class KudosRankingRequest extends Component {
-    static propTypes = RequestMaker.handlersPropTypes
-    static defaultProps = RequestMaker.defaultProps
-
-    normalize = ranking =>
+    normalize = (ranking = []) =>
         ranking
             .sort(this.compare)
             .map(({totalPoints, user: {name}}) => ({label: name, value: totalPoints}))
@@ -19,9 +16,12 @@ export default class KudosRankingRequest extends Component {
             <Request
                 authorized
                 from='kudos/rankings'
-                then={response => this.props.then(this.normalize(response))}
-                catch={this.props.catch}
-            />
+            >
+                {
+                    ({response, ...rest}) =>
+                        this.props.children({...rest, response: this.normalize(response)})
+                }
+            </Request>
         )
     }
 }

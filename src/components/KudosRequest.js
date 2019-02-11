@@ -1,39 +1,45 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Request, { RequestMaker } from './Request'
+import Request from './Request'
 
 export default class KudosRequest extends Component {
     static propTypes = {
-        ...RequestMaker.handlersPropTypes,
         page: PropTypes.number
-    }
-
-    static defaultProps = {
-        ...RequestMaker.defaultProps,
-        page: 0
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        if (props.page !== state.page) {
-            return {
-                page: props.page
-            }
-        } else {
-            return null
-        }
     }
 
     state = {
         page: 0,
     }
 
-    normalize = response => ({
-        ...response,
-        kudos: response.data.sort((a, b) => {
-            if (a.createdAt < b.createdAt) return 1
-            else return -1
-        })
-    })
+    kudos = []
+    storedPageIndex = -1
+
+    next = () =>
+        this.setState(state => ({page: state.page + 1}))
+
+    handleResponse = response => {
+        if (!response) {
+            return {
+                kudos: this.kudos,
+                hasNext: false,
+            }
+        }
+
+        // FIXME: Weak equality because back-end returns the page property as a string.
+        if (this.storedPageIndex != response.page) {
+            const newSortedKudos = response.data.sort((a, b) => {
+                if (a.createdAt < b.createdAt) return 1
+                else return -1
+            })
+            this.kudos = [...this.kudos, ...newSortedKudos]
+            this.storedPageIndex = response.page
+        }
+
+        return {
+            ...response,
+            kudos: this.kudos
+        }
+    }
 
     render() {
         return (
@@ -41,9 +47,12 @@ export default class KudosRequest extends Component {
                 authorized
                 from='kudos'
                 query={this.state}
-                then={response => this.props.then(this.normalize(response))}
-                catch={this.props.catch}
-            />
+            >
+                {
+                    ({response, ...rest}) =>
+                        this.props.children({...rest, response: this.handleResponse(response)})
+                }
+            </Request>
         )
     }
 }

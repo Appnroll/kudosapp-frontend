@@ -23,9 +23,6 @@ class Authorization extends Component {
     // Where it all begins.
     static rootPath = '/'
 
-    // And where everything will end.
-    static logoutPath = '/logout'
-
     // Authorization context consumer.
     static Consumer = AuthorizationContext.Consumer
 
@@ -38,6 +35,7 @@ class Authorization extends Component {
             token: null,
             userId: null,
             userName: null,
+            endSession: () => this.endSession()
         }
     }
 
@@ -53,12 +51,6 @@ class Authorization extends Component {
             this.startFromStoredData()
         } else if (this.isAtLogin() && paramToken) {
             this.startSessionFromAPIInfo()
-        }
-    }
-
-    componentWillReceiveProps({location}) {
-        if (location.pathname === Authorization.logoutPath) {
-            this.endSession()
         }
     }
 

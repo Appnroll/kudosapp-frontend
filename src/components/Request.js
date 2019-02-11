@@ -3,15 +3,7 @@ import PropTypes from 'prop-types'
 import withAuthorization from './withAuthorization'
 import withNetworking from './withNetworking'
 
-export class RequestMaker extends Component {
-    static handlersPropTypes = {
-        // Successful response handler.
-        then: PropTypes.func,
-
-        // Error handler.
-        catch: PropTypes.func,
-    }
-
+class RequestMaker extends Component {
     static propTypes = {
         // Endpoint's path.
         from: PropTypes.string.isRequired,
@@ -25,13 +17,12 @@ export class RequestMaker extends Component {
         // Params that will be used to construct URL.
         params: PropTypes.object,
 
-        // Result handlers.
-        ...Request.handlersPropTypes
+        // Callback executed after the network succeeds.
+        then: PropTypes.func,
     }
 
     static defaultProps = {
         then: () => undefined,
-        catch: () => undefined
     }
 
     static get endpoint() {
@@ -39,13 +30,13 @@ export class RequestMaker extends Component {
     }
 
     state = {
-        inProgress: false,
-        done: false,
+        loading: false,
+        error: null,
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.query !== nextProps.query) {
-            this.fetch({query: nextProps.query, params: nextProps.params})
+    componentDidUpdate(prevProps) {
+        if (this.props.query !== prevProps.query) {
+            this.fetch({query: prevProps.query, params: prevProps.params})
         }
     }
 
@@ -58,18 +49,23 @@ export class RequestMaker extends Component {
     }
 
     render() {
-        return null
+        if (this.state.error) {
+            throw this.state.error
+        }
+        return this.props.children ? this.props.children(this.state) : null
     }
 
     fetch({query, params}) {
-        const {authorized, authorization, networking, from, then: handleResponse, catch: handleError} = this.props
+        const {authorized, authorization, networking, from} = this.props
 
         if (authorized && !authorization.authorized) {
-            handleError({
-                statusCode: 403,
+            const error = {
+                status: 403,
                 error: 'Forbidden',
                 message: 'Trying to make an authorized request without credentials.'
-            })
+            }
+            this.setState({error, loading: false})
+            return
         }
 
         const headers = {
@@ -77,6 +73,7 @@ export class RequestMaker extends Component {
         }
 
         if (from) {
+            this.setState({loading: true})
             this.controller = new AbortController()
             networking.initiate()
             fetch(this.createUrl({path: from, query, params}), {headers, signal: this.controller.signal})
@@ -87,8 +84,9 @@ export class RequestMaker extends Component {
                         throw response
                     }
                 })
-                .then(handleResponse)
-                .catch(handleError)
+                .then(response => this.setState({loading: false, response}))
+                .then(response => this.props.then(response))
+                .catch(error => this.setState({loading: false, error}))
                 .finally(networking.end)
         }
     }
