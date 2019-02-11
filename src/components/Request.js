@@ -26,7 +26,7 @@ class RequestMaker extends Component {
     }
 
     static get endpoint() {
-        return 'https://kudosapp-staging.herokuapp.com/'
+        return 'https://kudosapp-production.herokuapp.com/'
     }
 
     state = {
