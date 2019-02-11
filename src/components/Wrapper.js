@@ -25,13 +25,13 @@ class Wrapper extends Component {
                             <NetworkErrorBoundary>
                                 <AuthorizationErrorBoundary>
                                     <Switch>
-                                        <Route exact path={'/'} component={LoginScreen}/>
+                                        <Route exact path="/" component={LoginScreen}/>
                                         <Route exact path="/logout" component={Logout}/>
-                                        <Route exact path={'/wall'}
+                                        <Route exact path="/wall"
                                                component={withAuthorizationRequired(ListOfCards)}/>
-                                        <Route exact path={'/stats'}
+                                        <Route exact path="/stats"
                                                component={withAuthorizationRequired(Stats)}/>
-                                        <Route path={'/stats/givers/:year?/:month?'}
+                                        <Route path="/stats/givers/:year?/:month?"
                                                component={withAuthorizationRequired(Givers)}/>
                                     </Switch>
                                 </AuthorizationErrorBoundary>
