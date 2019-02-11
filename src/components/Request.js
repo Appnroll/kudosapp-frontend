@@ -16,6 +16,13 @@ class RequestMaker extends Component {
 
         // Params that will be used to construct URL.
         params: PropTypes.object,
+
+        // Callback executed after the network succeeds.
+        then: PropTypes.func,
+    }
+
+    static defaultProps = {
+        then: () => undefined,
     }
 
     static get endpoint() {
@@ -78,6 +85,7 @@ class RequestMaker extends Component {
                     }
                 })
                 .then(response => this.setState({loading: false, response}))
+                .then(response => this.props.then(response))
                 .catch(error => this.setState({loading: false, error}))
                 .finally(networking.end)
         }
