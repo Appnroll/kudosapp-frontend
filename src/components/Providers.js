@@ -4,10 +4,10 @@ import Networking from './Networking'
 
 export default function Providers({children}) {
     return (
-        <Authorization>
-            <Networking>
+        <Networking>
+            <Authorization>
                 {children}
-            </Networking>
-        </Authorization>
+            </Authorization>
+        </Networking>
     )
 }
