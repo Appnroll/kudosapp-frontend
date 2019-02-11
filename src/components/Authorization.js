@@ -49,8 +49,12 @@ class Authorization extends Component {
 
         if (currentToken) {
             this.startFromStoredData()
-        } else if (this.isAtLogin() && paramToken) {
-            this.startSessionFromAPIInfo()
+        } else if (this.isAtLogin()) {
+            if (paramToken) {
+                this.startSessionFromAPIInfo()
+            } else {
+                this.navigateToRoot()
+            }
         }
     }
 
