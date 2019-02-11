@@ -5,7 +5,7 @@ import withAuthorization from './withAuthorization'
 class Authorized extends Component {
     componentWillMount() {
         if (!this.props.authorization.authorized) {
-            this.props.history.push(Authorization.loginPath)
+            this.props.history.push(Authorization.rootPath)
         }
     }
 
