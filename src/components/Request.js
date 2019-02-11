@@ -34,9 +34,9 @@ class RequestMaker extends Component {
         error: null,
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.query !== nextProps.query) {
-            this.fetch({query: nextProps.query, params: nextProps.params})
+    componentDidUpdate(prevProps) {
+        if (this.props.query !== prevProps.query) {
+            this.fetch({query: prevProps.query, params: prevProps.params})
         }
     }
 
