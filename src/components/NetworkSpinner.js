@@ -3,7 +3,7 @@ import Spinner from './Spinner'
 import withNetworking from './withNetworking'
 
 function NetworkSpinner({networking}) {
-    return true ? <Spinner/> : null
+    return networking.fetching ? <Spinner/> : null
 }
 
 export default withNetworking(NetworkSpinner)
