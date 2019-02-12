@@ -24,7 +24,7 @@ class StatsList extends Component {
                         <li key={index}>
                             <Points>{value}</Points>
                             <Bar best={value === this.state.top} height={this.calculateBar(value)}/>
-                            <LabelContainer><Label title={label}>{label}</Label></LabelContainer>
+                            <Label title={label}>{label}</Label>
                         </li>
                     )
                 }
@@ -34,31 +34,30 @@ class StatsList extends Component {
 }
 
 const StyledList = styled.ul`
-   margin: 50px auto 0;
-   display: flex;
-   overflow-x: scroll;
-   padding: 20px 20px 60px;
-   li {
+  margin: 50px auto 0;
+  display: flex;
+  overflow-x: scroll;
+  padding: 20px 20px 60px;
+  li {
     height: 50vh;
+    width: 100px;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-   }
-`
-const Bar = styled.div`
-  width: 100px;
-  background: ${Colors.GlacierBlue};
-  height: calc(${props => props.height}%);
-  margin: 10px;
-  position: relative;
-`
-const Points = styled.div`
-  width: 100%;
-  text-align: center;
+    flex-shrink: 0;
+  }
 `
 
-const LabelContainer = styled.div`
-  width: 90%;
+const Bar = styled.div`
+  background: ${Colors.GlacierBlue};
+  height: ${props => props.height}%;
+  margin: 10px 0;
+  position: relative;
+`
+
+const Points = styled.div`
+  width: 100%;
   text-align: center;
 `
 
