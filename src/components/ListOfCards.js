@@ -1,8 +1,7 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef } from 'react'
 import styled from 'styled-components'
-import KudoCard from "./KudoCard";
+import KudoCard from "./KudoCard"
 import KudosRequest from './KudosRequest'
-import NetworkSpinner from './NetworkSpinner'
 import LoadMoreButton from './LoadMoreButton'
 
 class ListOfCards extends Component {
@@ -30,7 +29,6 @@ class ListOfCards extends Component {
                                 }
                             </KudosList>
                             <Controls>
-                                <NetworkSpinner/>
                                 {
                                     hasNext &&
                                     <LoadMoreButton onClick={this.request.current.next}>Load more</LoadMoreButton>
@@ -43,7 +41,7 @@ class ListOfCards extends Component {
                     )
                 }}
             </KudosRequest>
-        );
+        )
     }
 }
 
