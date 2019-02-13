@@ -25,6 +25,12 @@ class NetworkErrorBoundary extends Component {
         return {error}
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({error: false})
+        }
+    }
+
     render() {
         const {error} = this.state
 
@@ -64,3 +70,5 @@ class NetworkErrorBoundary extends Component {
         return this.state.error && this.state.error.status === 403
     }
 }
+
+export default withRouter(NetworkErrorBoundary)
