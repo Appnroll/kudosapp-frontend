@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import ErrorContainer from './ErrorContainer'
 import Colors from '../constants/Colors'
+import Authorization from './Authorization'
 
 const ErrorMessage = styled.p`
   margin-bottom: 1em;
@@ -54,7 +55,7 @@ class NetworkErrorBoundary extends Component {
                         </ErrorButton>
                         {
                             this.isAuthError() &&
-                            <ErrorButton onClick={() => this.setState({error: false})}>
+                            <ErrorButton onClick={() => this.logOut()}>
                                 Log out
                             </ErrorButton>
                         }
@@ -64,6 +65,10 @@ class NetworkErrorBoundary extends Component {
                 {!error && this.props.children}
             </>
         )
+    }
+
+    logOut() {
+        this.props.history.push(Authorization.logoutPath)
     }
 
     isAuthError() {
