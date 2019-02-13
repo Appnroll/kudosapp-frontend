@@ -26,7 +26,7 @@ class NetworkErrorBoundary extends Component {
         return {error}
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
             this.setState({error: false})
         }
