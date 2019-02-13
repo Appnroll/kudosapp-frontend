@@ -5,7 +5,7 @@ import LogoutRequest from './LogoutRequest'
 class Logout extends Component {
     render() {
         return (
-            <LogoutRequest then={() => this.props.authorization.endSession()}>
+            <LogoutRequest finally={() => this.props.authorization.endSession()}>
                 {
                     () => <p>Logging you out.</p>
                 }

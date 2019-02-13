@@ -23,6 +23,9 @@ class Authorization extends Component {
     // Where it all begins.
     static rootPath = '/'
 
+    // And where everything will end.
+    static logoutPath = '/logout'
+
     // Authorization context consumer.
     static Consumer = AuthorizationContext.Consumer
 
