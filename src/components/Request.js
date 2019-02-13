@@ -19,14 +19,18 @@ class RequestMaker extends Component {
 
         // Callback executed after the network succeeds.
         then: PropTypes.func,
+
+        // Callback executed after the network requests ends, no matte the result.
+        finally: PropTypes.func,
     }
 
     static defaultProps = {
         then: () => undefined,
+        finally: () => undefined,
     }
 
     static get endpoint() {
-        return 'https://kudosapp-production.herokuapp.com/'
+        return 'https://kudosapp-staging.herokuapp.com/'
     }
 
     state = {
@@ -88,7 +92,10 @@ class RequestMaker extends Component {
                 .then(response => this.setState({loading: false, response}))
                 .then(response => this.props.then(response))
                 .catch(error => this.setState({loading: false, error}))
-                .finally(networking.end)
+                .finally(() => {
+                    networking.end()
+                    this.props.finally()
+                })
         }
     }
 
