@@ -23,7 +23,9 @@ class AvailablePeopleContainer extends Component {
                                 <NetworkSpinner/>
                                 {!loading && !!response && <div>
                                     <>
-                                        <CheckIn available={response.filter(u => u.name === this.props.authorization.userName)}/>
+                                        {JSON.stringify(response)}
+                                        ! {JSON.stringify(response.filter(u => u.name === this.props.authorization.userId))} !
+                                        <CheckIn available={false}/>
                                         {
                                             response.map(e => <Entry>
                                                 {e.name} {e.available ? <OnlineDot/> : <OfflineDot/>}
