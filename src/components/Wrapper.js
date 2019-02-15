@@ -12,6 +12,7 @@ import NetworkErrorBoundary from './NetworkErrorBoundary'
 import GenericErrorBoundary from './GenericErrorBoundary'
 import Providers from './Providers'
 import Logout from './Logout'
+import RootComponent from "./RootComponent";
 
 class Wrapper extends Component {
     render() {
@@ -31,6 +32,7 @@ class Wrapper extends Component {
                                            component={withAuthorizationRequired(Stats)}/>
                                     <Route path="/stats/givers/:year?/:month?"
                                            component={withAuthorizationRequired(Givers)}/>
+                                    <Route exact path="/pukpuk" component={RootComponent}/>
                                 </Switch>
                             </NetworkErrorBoundary>
                         </Container>
