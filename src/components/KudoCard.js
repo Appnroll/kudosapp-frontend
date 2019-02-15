@@ -82,7 +82,8 @@ const KudosContent = styled.p`
 const KudosAuthor = styled.p`
   font-size: 12px;
 `
-const Avatar = styled.div`
+export const Avatar = styled.div`
+  min-width: 25px;
   height: 25px;
   width: 25px;
   margin: 0;
