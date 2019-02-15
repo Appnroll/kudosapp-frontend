@@ -4,6 +4,7 @@ import NetworkSpinner from './NetworkSpinner'
 import withNetworking from './withNetworking'
 import AvailablePeopleRequest from './AvailablePeopleRequest'
 import CheckIn from './CheckIn'
+import withAuthorization from './withAuthorization'
 
 class AvailablePeopleContainer extends Component {
     state = {
@@ -18,14 +19,17 @@ class AvailablePeopleContainer extends Component {
                         ({loading, response}) => (
                             <>
 
-                                <CheckIn/>
+
                                 <NetworkSpinner/>
                                 {!loading && !!response && <div>
-                                    {
-                                        response.map(e => <Entry>
-                                            {e.name} {e.available ? <OnlineDot/> : <OfflineDot/>}
-                                        </Entry>)
-                                    }
+                                    <>
+                                        <CheckIn available={response.filter(u => u.name === this.props.authorization.userName)}/>
+                                        {
+                                            response.map(e => <Entry>
+                                                {e.name} {e.available ? <OnlineDot/> : <OfflineDot/>}
+                                            </Entry>)
+                                        }
+                                    </>
                                 </div>}
                             </>
                         )
@@ -63,4 +67,4 @@ const OfflineDot = styled.div`
   background-color: red;
 `
 
-export default withNetworking(AvailablePeopleContainer)
+export default withAuthorization(withNetworking(AvailablePeopleContainer))

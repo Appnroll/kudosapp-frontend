@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import withAuthorization from './withAuthorization'
 import withNetworking from './withNetworking'
 
-class RequestMaker extends Component {
+export class RequestMaker extends Component {
     static propTypes = {
         // Endpoint's path.
         from: PropTypes.string.isRequired,
