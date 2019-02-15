@@ -17,12 +17,14 @@ class AvailablePeopleContainer extends Component {
                     {
                         ({loading, response}) => (
                             <>
+
+                                <CheckIn/>
                                 <NetworkSpinner/>
                                 {!loading && !!response && <div>
                                     {
-                                        response.map(e => <div>
-                                            {e.name} {e.available ? "I AM THERE" : 'out'}
-                                        </div>)
+                                        response.map(e => <Entry>
+                                            {e.name} {e.available ? <OnlineDot/> : <OfflineDot/>}
+                                        </Entry>)
                                     }
                                 </div>}
                             </>
@@ -30,7 +32,6 @@ class AvailablePeopleContainer extends Component {
                     }
                 </AvailablePeopleRequest>
 
-                <CheckIn/>
             </Container>
         )
     }
@@ -42,6 +43,24 @@ const Container = styled.div`
   align-items: center;
   max-width: 1150px;
   margin: 0 auto;
+`
+
+const Entry = styled.div`
+display: flex;flex-direction: row;
+`
+
+const OnlineDot = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: green;
+`
+
+const OfflineDot = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: red;
 `
 
 export default withNetworking(AvailablePeopleContainer)
