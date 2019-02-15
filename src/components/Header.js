@@ -38,6 +38,11 @@ class Header extends Component {
                                     </NavLink>
                                 </li>
                                 <li>
+                                    <NavLink to={"/pukpuk"} activeStyle={{color: Colors.Banana}}>
+                                        Puk puk
+                                    </NavLink>
+                                </li>
+                                <li>
                                     <NavLink to={`/logout`}>
                                         Logout
                                     </NavLink>
