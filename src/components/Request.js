@@ -30,7 +30,7 @@ class RequestMaker extends Component {
     }
 
     static get endpoint() {
-        return 'https://kudosapp-production.herokuapp.com/'
+        return process.env.REACT_APP_API_URL
     }
 
     state = {
